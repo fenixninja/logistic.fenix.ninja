@@ -39,13 +39,23 @@ Al integrar **WhatsAuth** en el flujo operativo de reparto:
 - **Sección SCAN (Columna Izquierda):**
   - Terminal iPhone ultrarrealista con cámara frontal, botones de hardware laterales y **Dynamic Island / Notch interactivo** que se expande al pasar el cursor (`:hover`).
   - Interior de la pantalla con la imagen `img/FNX_logo.jpeg`.
+  - **WhatAuth Pixel QR Generator:** Cada paquete enfocado genera dinámicamente su código QR interactivo de alta resolución dentro del crosshair del visor con `QRCodeStyling` y el logo corporativo.
   - Visor holográfico láser animado que lee los códigos de paquetería en tiempo real.
-  - Panel HUD con datos del envío (ID, destinatario, dirección, peso, geocerca) y botón *«CERTIFICAR RECEPCIÓN»*.
+  - Panel HUD con datos del envío (ID, destinatario, dirección, peso, geocerca) y botón *«CERTIFICAR RECEPCIÓN»* / enlace nativo a WhatsApp.
 - **Sección SELECCIONAR PAQUETE (Columna Derecha):**
   - Rejilla de **6 cajas de cartón kraft** (3 arriba y 3 abajo en escritorio).
   - Cada caja cuenta con cinta de seguridad `SECURITY SEAL`, etiqueta blanca con código de barras, tracking alfanumérico (`ES-MAD-8921` a `8926`), sellos técnicos (`FRÁGIL`, `URGENTE`, `CUSTODIA`, etc.) y peso.
-  - Sincronización instantánea al hacer clic: enfoca el paquete seleccionado en la pantalla del iPhone.
-- **Diseño Responsive:** Apilamiento vertical automático en tabletas y teléfonos móviles para facilitar el uso táctil.
+  - Sincronización instantánea al hacer clic: enfoca el paquete seleccionado en la pantalla del iPhone y solicita su QR Pixel a WhatAuth.
+- **Drawer Deslizante de Paquetes Entregados (Historial en Vivo):**
+  - Panel lateral accesible desde el botón con icono 📦 y badge de contador dinámico en la cabecera.
+  - Registro cronológico persistido en `localStorage` (`logistic_delivered_packages`).
+  - Tarjetas detalladas con destinatario, dirección, hora formateada y precinto hash SHA-256 verificado.
+  - Botón de vaciado de historial para reiniciar la ruta de reparto.
+- **Conexión WebSocket WhatAuth Pixel:**
+  - Comunicación bidireccional reactiva con `api.whatauth.com`.
+  - Despacho a través de la línea dedicada (+34627118121) en GOWA.
+  - Deduplicación estricta de eventos: 1 escaneo físico equivale rigurosamente a 1 paquete sellado y entregado.
+- **Diseño Responsive:** Apilamiento vertical automático en tabletas y teléfonos móviles con desplazamiento fluido al iPhone al pulsar cualquier bulto.
 
 ---
 

@@ -32,6 +32,10 @@
   <meta name="theme-color" content="#1F4594">
 
   <link rel="stylesheet" href="style.css">
+
+  <!-- WhatAuth Pixel Dependencies: Socket.IO & QR Code Styling -->
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+  <script src="vendor/qr-code-styling.js"></script>
 </head>
 <body>
   <!-- ========================================================
@@ -74,6 +78,13 @@
 
       <!-- Acciones a la derecha -->
       <div class="header-actions">
+        <!-- Botón Panel de Entregados (Historial en tiempo real) -->
+        <button type="button" class="btn-delivered-panel" id="btn-delivered-panel" aria-label="Ver paquetes entregados" title="Paquetes entregados">
+          <span class="delivered-icon">📦</span>
+          <span class="delivered-text" data-i18n="nav_delivered">Entregados</span>
+          <span class="badge-delivered-count" id="badge-delivered-count">0</span>
+        </button>
+
         <!-- Selector de idiomas i18n -->
         <select id="start-lang-select" class="i18n-select" aria-label="Idioma / Language">
           <option value="es">🇪🇸 Español</option>
@@ -151,6 +162,8 @@
                     <div class="corner corner-br"></div>
                     <!-- Línea láser de escaneo -->
                     <div class="laser-scanner-beam" id="laser-beam"></div>
+                    <!-- Target QR Pixel WhatAuth para escaneo con WhatsApp -->
+                    <div class="phone-qr-target" id="phone-qr-target"></div>
                   </div>
                 </div>
               </div>
@@ -213,14 +226,14 @@
                     </div>
                   </div>
 
-                  <!-- Botón de certificar recepción en brand orange -->
+                  <!-- Botón de certificar recepción en brand orange / Enlace directo WhatsApp -->
                   <div class="hud-actions">
-                    <button class="btn btn-orange btn-full btn-scan-action" id="btn-certify-delivery">
+                    <a class="btn btn-orange btn-full btn-scan-action" id="btn-certify-delivery" href="#" target="_blank" rel="noopener noreferrer">
                       <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                       </svg>
                       <span id="btn-certify-label" data-i18n="btn_certify_delivery">CERTIFICAR RECEPCIÓN</span>
-                    </button>
+                    </a>
                     <div class="hud-hash-preview font-mono" id="hud-hash-display">SHA-256: 9d3f8a42e5b7...</div>
                   </div>
                 </div>
@@ -460,6 +473,38 @@
       </div>
     </div>
   </footer>
+
+  <!-- ========================================================
+       DRAWER DESLIZANTE DE PAQUETES ENTREGADOS
+       ======================================================== -->
+  <div id="deliveredDrawerOverlay" class="delivered-drawer-overlay" aria-hidden="true"></div>
+  <aside id="deliveredDrawer" class="delivered-drawer" aria-hidden="true" role="dialog" aria-labelledby="deliveredDrawerTitle">
+    <div class="delivered-drawer-header">
+      <div class="delivered-title-group">
+        <span class="delivered-title-icon">📦</span>
+        <h2 id="deliveredDrawerTitle" data-i18n="drawer_title">Paquetes Entregados</h2>
+        <span id="deliveredDrawerBadge" class="delivered-drawer-badge font-mono">0</span>
+      </div>
+      <button id="btnCloseDeliveredDrawer" class="btn-close-delivered-drawer" aria-label="Cerrar">&times;</button>
+    </div>
+
+    <div class="delivered-drawer-body" id="deliveredDrawerList">
+      <!-- Renderizado dinámico de paquetes entregados -->
+    </div>
+
+    <div class="delivered-drawer-footer" id="deliveredDrawerFooter">
+      <div class="delivered-summary">
+        <span data-i18n="drawer_hash_label">Precinto Criptográfico:</span>
+        <strong class="font-mono text-success">eIDAS • WhatAuth</strong>
+      </div>
+      <div class="delivered-actions">
+        <button id="btnClearDeliveredHistory" class="btn-clear-delivered" data-i18n="drawer_clear">Vaciar Registro</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Toast de Notificación Flotante -->
+  <div id="logisticToast" class="logistic-toast" aria-live="polite"></div>
 
   <script src="index.js"></script>
 </body>

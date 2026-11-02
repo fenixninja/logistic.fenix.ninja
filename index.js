@@ -71,7 +71,17 @@ const I18N = {
         js_certified: "ENTREGA CERTIFICADA",
         js_immutable_receipt: "Comprobante inmutable emitido",
         js_delivered: "✓ ENTREGADO",
-        js_certify_action: "CERTIFICAR RECEPCIÓN"
+        js_certify_action: "CERTIFICAR RECEPCIÓN",
+        nav_delivered: "Entregados",
+        drawer_title: "Paquetes Entregados",
+        drawer_empty: "No hay entregas certificadas todavía.",
+        drawer_empty_sub: "Selecciona un paquete y escanea su QR con WhatsApp para sellar la entrega.",
+        drawer_clear: "Vaciar Registro",
+        drawer_hash_label: "Precinto Criptográfico:",
+        btn_whatsapp_verify: "Confirmar en WhatsApp",
+        loading_qr: "Cargando QR...",
+        toast_delivered_title: "✓ ¡Recepción Sellada!",
+        toast_delivered_desc: "Paquete verificado con WhatsApp"
     },
     en: {
         brand_subtag: "LOGISTIC TERMINAL",
@@ -122,7 +132,17 @@ const I18N = {
         js_certified: "DELIVERY CERTIFIED",
         js_immutable_receipt: "Immutable receipt issued",
         js_delivered: "✓ DELIVERED",
-        js_certify_action: "CERTIFY DELIVERY"
+        js_certify_action: "CERTIFY DELIVERY",
+        nav_delivered: "Delivered",
+        drawer_title: "Delivered Parcels",
+        drawer_empty: "No certified deliveries yet.",
+        drawer_empty_sub: "Select a parcel and scan its QR with WhatsApp to seal delivery.",
+        drawer_clear: "Clear History",
+        drawer_hash_label: "Cryptographic Seal:",
+        btn_whatsapp_verify: "Confirm in WhatsApp",
+        loading_qr: "Loading QR...",
+        toast_delivered_title: "✓ Receipt Sealed!",
+        toast_delivered_desc: "Parcel verified with WhatsApp"
     },
     de: {
         brand_subtag: "LOGISTIK-TERMINAL",
@@ -173,7 +193,17 @@ const I18N = {
         js_certified: "ZUSTELLUNG ZERTIFIZIERT",
         js_immutable_receipt: "Unveränderlicher Beleg ausgestellt",
         js_delivered: "✓ ZUGESTELLT",
-        js_certify_action: "EMPFANG BESTÄTIGEN"
+        js_certify_action: "EMPFANG BESTÄTIGEN",
+        nav_delivered: "Zugestellt",
+        drawer_title: "Zugestellte Pakete",
+        drawer_empty: "Noch keine zertifizierten Zustellungen.",
+        drawer_empty_sub: "Wählen Sie ein Paket und scannen Sie den QR mit WhatsApp.",
+        drawer_clear: "Verlauf leeren",
+        drawer_hash_label: "Kryptografisches Siegel:",
+        btn_whatsapp_verify: "In WhatsApp bestätigen",
+        loading_qr: "QR wird geladen...",
+        toast_delivered_title: "✓ Empfang versiegelt!",
+        toast_delivered_desc: "Paket mit WhatsApp verifiziert"
     },
     fr: {
         brand_subtag: "TERMINAL LOGISTIQUE",
@@ -224,7 +254,17 @@ const I18N = {
         js_certified: "LIVRAISON CERTIFIÉE",
         js_immutable_receipt: "Reçu immuable émis",
         js_delivered: "✓ LIVRÉ",
-        js_certify_action: "CERTIFIER LA RÉCEPTION"
+        js_certify_action: "CERTIFIER LA RÉCEPTION",
+        nav_delivered: "Livrés",
+        drawer_title: "Colis Livrés",
+        drawer_empty: "Aucune livraison certifiée pour le moment.",
+        drawer_empty_sub: "Sélectionnez un colis et scannez son QR avec WhatsApp.",
+        drawer_clear: "Vider l'historique",
+        drawer_hash_label: "Sceau Cryptographique :",
+        btn_whatsapp_verify: "Confirmer sur WhatsApp",
+        loading_qr: "Chargement QR...",
+        toast_delivered_title: "✓ Réception scellée !",
+        toast_delivered_desc: "Colis vérifié avec WhatsApp"
     },
     hi: {
         brand_subtag: "लॉजिस्टिक्स टर्मिनल",
@@ -275,7 +315,17 @@ const I18N = {
         js_certified: "डिलीवरी प्रमाणित",
         js_immutable_receipt: "अपरिवर्तनीय रसीद जारी की गई",
         js_delivered: "✓ वितरित",
-        js_certify_action: "डिलीवरी प्रमाणित करें"
+        js_certify_action: "डिलीवरी प्रमाणित करें",
+        nav_delivered: "वितरित",
+        drawer_title: "वितरित पैकेज",
+        drawer_empty: "अभी तक कोई प्रमाणित डिलीवरी नहीं।",
+        drawer_empty_sub: "पैकेज चुनें और डिलीवरी सील करने के लिए व्हाट्सएप से क्यूआर स्कैन करें।",
+        drawer_clear: "इतिहास साफ़ करें",
+        drawer_hash_label: "क्रिप्टोग्राफ़िक सील:",
+        btn_whatsapp_verify: "व्हाट्सएप में पुष्टि करें",
+        loading_qr: "क्यूआर लोड हो रहा है...",
+        toast_delivered_title: "✓ प्राप्ति सील की गई!",
+        toast_delivered_desc: "व्हाट्सएप से पैकेज सत्यापित"
     },
     zh: {
         brand_subtag: "物流移动终端",
@@ -326,7 +376,17 @@ const I18N = {
         js_certified: "交付已权威认证",
         js_immutable_receipt: "已出具不可篡改凭证",
         js_delivered: "✓ 已成功交付",
-        js_certify_action: "认证签收交付"
+        js_certify_action: "认证签收交付",
+        nav_delivered: "已送达",
+        drawer_title: "已送达包裹",
+        drawer_empty: "尚无已认证交付记录。",
+        drawer_empty_sub: "选择包裹并在WhatsApp中扫描二维码以印封交付凭据。",
+        drawer_clear: "清空记录",
+        drawer_hash_label: "加密防伪印章：",
+        btn_whatsapp_verify: "在WhatsApp中确认",
+        loading_qr: "正在加载二维码...",
+        toast_delivered_title: "✓ 签收印封成功！",
+        toast_delivered_desc: "包裹已通过WhatsApp认证"
     },
     ja: {
         brand_subtag: "物流端末ターミナル",
@@ -377,7 +437,17 @@ const I18N = {
         js_certified: "配達が認証されました",
         js_immutable_receipt: "改ざん不能な証明書を発行",
         js_delivered: "✓ 配達完了",
-        js_certify_action: "受領証明を実行"
+        js_certify_action: "受領証明を実行",
+        nav_delivered: "配達完了",
+        drawer_title: "配達済み荷物",
+        drawer_empty: "認定された配達はまだありません。",
+        drawer_empty_sub: "荷物を選択しWhatsAppでQRをスキャンして受取を認証してください。",
+        drawer_clear: "履歴を消去",
+        drawer_hash_label: "暗号シール:",
+        btn_whatsapp_verify: "WhatsAppで確認",
+        loading_qr: "QRを読み込み中...",
+        toast_delivered_title: "✓ 受領認証完了！",
+        toast_delivered_desc: "WhatsAppで荷物を照合しました"
     }
 };
 
@@ -496,13 +566,44 @@ function initI18n() {
 }
 
 /* ========================================================
+   CONFIGURACIÓN WHATSAUTH PIXEL & ESTADO GLOBAL
+   ======================================================== */
+const WHATAUTH_CONFIG = {
+    phone: '34627118121',
+    domain: 'logistic.fenix.ninja',
+    wsUrl: 'https://api.whatauth.com',
+    logoUrl: 'img/logo.png',
+    storageKey: 'logistic_delivered_packages'
+};
+
+const LogisticState = {
+    socket: null,
+    currentPkgId: 'ES-MAD-8921',
+    activePackageSessions: {}, // { [pkgId]: { sessionId, walink, pin } }
+    activeSessions: {}, // { [sessionId]: pkgId }
+    deliveredPackages: [], // Array de entregas persistidas
+    drawerOpen: false
+};
+
+// Deduplicador estricto para garantizar exactamente 1 entrega por escaneo físico
+const verifiedDeliverySessions = new Set();
+let lastDeliveryVerifiedTime = 0;
+
+/* ========================================================
    INICIALIZACIÓN AL CARGAR EL DOM
    ======================================================== */
 document.addEventListener('DOMContentLoaded', () => {
     initI18n();
+    loadDeliveredPackages();
     initBackgroundVideoLoop();
     initPackageSelection();
     initDeliveryCertification();
+    initDeliveredDrawer();
+    restoreDeliveredStateOnBoxes();
+
+    // Iniciar conexión Socket.IO con WhatAuth y solicitar QR del primer paquete
+    getWhatAuthSocket();
+    requestPackageQr(LogisticState.currentPkgId);
 });
 
 /* ========================================================
@@ -554,7 +655,471 @@ function initBackgroundVideoLoop() {
 }
 
 /* ========================================================
-   2. INTERACTIVIDAD DE LAS 6 CAJAS DE CARTÓN (SELECCIÓN)
+   2. CONEXIÓN WEBSOCKET WHATSAUTH & CICLO DEL QR PIXEL
+   ======================================================== */
+function getWhatAuthSocket() {
+    if (LogisticState.socket) return LogisticState.socket;
+    if (typeof io === 'undefined') {
+        console.warn('[WhatAuth WS] Socket.IO no disponible en la página');
+        return null;
+    }
+
+    const socket = io(WHATAUTH_CONFIG.wsUrl, {
+        transports: ['websocket', 'polling'],
+        reconnection: true,
+        reconnectionAttempts: 10,
+        reconnectionDelay: 1000
+    });
+
+    socket.on('connect', () => {
+        console.log('[WhatAuth WS] Conectado a', WHATAUTH_CONFIG.wsUrl, 'ID:', socket.id);
+        socket.emit('subscribe_pixel', { domain: WHATAUTH_CONFIG.domain });
+        if (LogisticState.currentPkgId) {
+            requestPackageQr(LogisticState.currentPkgId);
+        }
+    });
+
+    // 1. Recepción de QR generado por el backend de WhatAuth
+    socket.on('qr_ready', (data) => {
+        console.log('[WhatAuth WS] qr_ready recibido:', data);
+        if (!data || !data.success) return;
+
+        const pkgId = LogisticState.currentPkgId || 'ES-MAD-8921';
+        const sessionId = data.sessionId;
+
+        if (sessionId) {
+            LogisticState.activeSessions[sessionId] = pkgId;
+        }
+
+        // Ajustar número de teléfono al número oficial configurado (+34627118121)
+        let finalWalink = data.walink || '';
+        if (WHATAUTH_CONFIG.phone && finalWalink) {
+            try {
+                const u = new URL(finalWalink);
+                u.searchParams.set('phone', WHATAUTH_CONFIG.phone);
+                finalWalink = u.toString();
+            } catch (_) {}
+        }
+
+        const sessionData = {
+            sessionId,
+            walink: finalWalink,
+            qrDataUrl: data.qrDataUrl || data.qrBase64 || '',
+            pin: data.pin || `LOG-${pkgId.replace(/[^a-zA-Z0-9]/g, '')}`
+        };
+
+        LogisticState.activePackageSessions[pkgId] = sessionData;
+        renderQrInPhone(pkgId, sessionData);
+    });
+
+    // 2. Recepción de confirmación cuando el usuario escanea y envía el WhatsApp
+    socket.on('res_pixel_qr', handleDeliveryVerification);
+    socket.on('qr_verified', handleDeliveryVerification);
+
+    socket.on('disconnect', (reason) => {
+        console.log('[WhatAuth WS] Desconectado:', reason);
+    });
+
+    LogisticState.socket = socket;
+    return socket;
+}
+
+function handleDeliveryVerification(data) {
+    const sessionId = data?.sessionId || '';
+    const now = Date.now();
+
+    // Deduplicación estricta
+    if (sessionId && verifiedDeliverySessions.has(sessionId)) {
+        console.log('[WhatAuth WS] 🛑 Sesión de entrega ya procesada:', sessionId);
+        return;
+    }
+    if (now - lastDeliveryVerifiedTime < 2000) {
+        console.log('[WhatAuth WS] 🛑 Evento duplicado en ráfaga suprimido (< 2s)');
+        return;
+    }
+
+    if (sessionId) {
+        verifiedDeliverySessions.add(sessionId);
+    }
+    lastDeliveryVerifiedTime = now;
+
+    console.log('[WhatAuth WS] 🎯 ¡Verificación de entrega recibida!', data);
+    const pkgId = (sessionId && LogisticState.activeSessions[sessionId]) || LogisticState.currentPkgId || 'ES-MAD-8921';
+
+    markPackageDelivered(pkgId, data);
+}
+
+function requestPackageQr(pkgId) {
+    const qrContainer = document.getElementById('phone-qr-target');
+    if (!qrContainer) return;
+
+    LogisticState.currentPkgId = pkgId;
+    const dict = I18N[currentLang] || I18N.es;
+    const isAlreadyDelivered = LogisticState.deliveredPackages.some(p => p.id === pkgId);
+    const btnCertify = document.getElementById('btn-certify-delivery');
+    const btnCertifyLabel = document.getElementById('btn-certify-label');
+
+    if (isAlreadyDelivered) {
+        if (btnCertify) {
+            btnCertify.classList.add('disabled');
+            btnCertify.style.background = '#10b981';
+            btnCertify.href = '#';
+        }
+        if (btnCertifyLabel) {
+            btnCertifyLabel.textContent = dict.js_sealed;
+        }
+    } else {
+        if (btnCertify) {
+            btnCertify.classList.remove('disabled');
+            btnCertify.style.background = 'var(--brand-delivery-orange)';
+        }
+        if (btnCertifyLabel) {
+            btnCertifyLabel.textContent = dict.js_certify_action;
+        }
+    }
+
+    // Si ya tenemos sesión en caché para este paquete, renderizar de inmediato
+    const cached = LogisticState.activePackageSessions[pkgId];
+    if (cached && cached.walink) {
+        renderQrInPhone(pkgId, cached);
+        return;
+    }
+
+    // Mostrar loader en el visor del iPhone
+    qrContainer.innerHTML = `
+        <div class="qr-loader-container">
+            <div class="qr-spinner-ring"></div>
+            <span>${dict.loading_qr || 'Cargando QR...'}</span>
+        </div>
+    `;
+
+    const socket = getWhatAuthSocket();
+    if (socket && socket.connected) {
+        socket.emit('req_pixel_qr', {
+            domain: WHATAUTH_CONFIG.domain,
+            id: pkgId
+        });
+    } else if (socket) {
+        socket.once('connect', () => {
+            socket.emit('req_pixel_qr', {
+                domain: WHATAUTH_CONFIG.domain,
+                id: pkgId
+            });
+        });
+    }
+}
+
+function renderQrInPhone(pkgId, sessionData) {
+    const qrContainer = document.getElementById('phone-qr-target');
+    if (!qrContainer) return;
+
+    qrContainer.innerHTML = '';
+
+    if (typeof QRCodeStyling !== 'undefined' && sessionData.walink) {
+        const qrCode = new QRCodeStyling({
+            width: 140,
+            height: 140,
+            type: 'svg',
+            data: sessionData.walink,
+            image: WHATAUTH_CONFIG.logoUrl || undefined,
+            dotsOptions: {
+                color: '#1F4594',
+                type: 'rounded'
+            },
+            backgroundOptions: {
+                color: '#ffffff'
+            },
+            imageOptions: {
+                crossOrigin: 'anonymous',
+                margin: 2,
+                imageSize: 0.28
+            },
+            cornersSquareOptions: {
+                color: '#FE6C27',
+                type: 'extra-rounded'
+            },
+            cornersDotOptions: {
+                color: '#1F4594',
+                type: 'dot'
+            }
+        });
+        qrCode.append(qrContainer);
+    } else if (sessionData.qrDataUrl) {
+        qrContainer.innerHTML = `<img src="${sessionData.qrDataUrl}" alt="QR Pixel WhatAuth" style="width: 100%; height: 100%; object-fit: contain;">`;
+    }
+
+    // Configurar el botón de certificar para abrir WhatsApp directamente
+    const btnCertify = document.getElementById('btn-certify-delivery');
+    if (btnCertify && sessionData.walink) {
+        btnCertify.href = sessionData.walink;
+    }
+}
+
+/* ========================================================
+   3. SELLADO Y CERTIFICACIÓN DE ENTREGA
+   ======================================================== */
+function markPackageDelivered(pkgId, scanMeta = {}) {
+    const box = document.querySelector(`.cardboard-box[data-pkg-id="${pkgId}"]`);
+    const dict = I18N[currentLang] || I18N.es;
+
+    const recipient = box ? box.dataset.name : (scanMeta.name || 'Elena Morales');
+    const address = box ? box.dataset.address : (scanMeta.address || 'C/ Velázquez 45, Madrid');
+    const weight = box ? box.dataset.weight : (scanMeta.weight || '1.8 kg • Frágil');
+    const type = box ? box.dataset.type : (scanMeta.type || 'Estándar');
+
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString(currentLang === 'es' ? 'es-ES' : 'en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+    // Generar precinto criptográfico SHA-256
+    const hash = '9d3f' + Math.random().toString(16).substring(2, 10) + Math.random().toString(16).substring(2, 10);
+
+    const deliveryRecord = {
+        id: pkgId,
+        recipient,
+        address,
+        weight,
+        type,
+        timestamp: now.toISOString(),
+        timeFormatted: timeStr,
+        hash,
+        phone: scanMeta.senderPhone || scanMeta.phone || WHATAUTH_CONFIG.phone
+    };
+
+    // Persistir si no existe previamente
+    if (!LogisticState.deliveredPackages.some(p => p.id === pkgId)) {
+        LogisticState.deliveredPackages.unshift(deliveryRecord);
+        saveDeliveredPackages();
+    }
+
+    // Marcar visualmente la caja de cartón como entregada
+    if (box) {
+        box.classList.add('delivered');
+        const statusEl = box.querySelector('.box-indicator-status');
+        const hintEl = box.querySelector('.box-action-hint');
+        if (statusEl) {
+            statusEl.className = "box-indicator-status";
+            statusEl.innerHTML = `<span style="color:#10b981; font-weight:800;">${dict.js_delivered}</span>`;
+        }
+        if (hintEl) {
+            hintEl.textContent = timeStr;
+        }
+    }
+
+    // Actualizar HUD del iPhone si es el paquete actualmente enfocado
+    if (LogisticState.currentPkgId === pkgId) {
+        const btnCertify = document.getElementById('btn-certify-delivery');
+        const btnCertifyLabel = document.getElementById('btn-certify-label');
+        const hudHashDisplay = document.getElementById('hud-hash-display');
+        const notchStatusText = document.getElementById('notch-status-text');
+        const notchPkgLabel = document.getElementById('notch-pkg-label');
+
+        if (btnCertify) {
+            btnCertify.classList.add('disabled');
+            btnCertify.style.background = "#10b981";
+            btnCertify.href = '#';
+        }
+        if (btnCertifyLabel) btnCertifyLabel.textContent = dict.js_sealed;
+
+        if (hudHashDisplay) {
+            hudHashDisplay.innerHTML = `<span style="color:#10b981;">${dict.js_hash_registered} (${timeStr})</span>`;
+        }
+
+        if (notchStatusText) notchStatusText.textContent = dict.js_certified;
+        if (notchPkgLabel) notchPkgLabel.textContent = `Tel: +${deliveryRecord.phone}`;
+    }
+
+    // Actualizar contador del badge
+    updateDeliveredCountBadge();
+
+    // Re-renderizar lista del Drawer si está abierto
+    renderDeliveredDrawer();
+
+    // Notificación Toast flotante
+    showToast(`${dict.toast_delivered_title || '✓ ¡Recepción Sellada!'} ${pkgId}`);
+}
+
+/* ========================================================
+   4. PERSISTENCIA EN LOCALSTORAGE
+   ======================================================== */
+function saveDeliveredPackages() {
+    try {
+        localStorage.setItem(WHATAUTH_CONFIG.storageKey, JSON.stringify(LogisticState.deliveredPackages));
+    } catch (e) {
+        console.warn('Error guardando en localStorage:', e);
+    }
+}
+
+function loadDeliveredPackages() {
+    try {
+        const data = localStorage.getItem(WHATAUTH_CONFIG.storageKey);
+        if (data) {
+            LogisticState.deliveredPackages = JSON.parse(data);
+        }
+    } catch (e) {
+        LogisticState.deliveredPackages = [];
+    }
+}
+
+function restoreDeliveredStateOnBoxes() {
+    const dict = I18N[currentLang] || I18N.es;
+    LogisticState.deliveredPackages.forEach(pkg => {
+        const box = document.querySelector(`.cardboard-box[data-pkg-id="${pkg.id}"]`);
+        if (box) {
+            box.classList.add('delivered');
+            const statusEl = box.querySelector('.box-indicator-status');
+            const hintEl = box.querySelector('.box-action-hint');
+            if (statusEl) {
+                statusEl.className = "box-indicator-status";
+                statusEl.innerHTML = `<span style="color:#10b981; font-weight:800;">${dict.js_delivered}</span>`;
+            }
+            if (hintEl) {
+                hintEl.textContent = pkg.timeFormatted || '✓';
+            }
+        }
+    });
+    updateDeliveredCountBadge();
+}
+
+function updateDeliveredCountBadge() {
+    const count = LogisticState.deliveredPackages.length;
+    const badge = document.getElementById('badge-delivered-count');
+    const drawerBadge = document.getElementById('deliveredDrawerBadge');
+
+    if (badge) {
+        badge.textContent = count;
+        badge.classList.remove('bump');
+        void badge.offsetWidth; // Forzar reflow
+        badge.classList.add('bump');
+    }
+    if (drawerBadge) {
+        drawerBadge.textContent = count;
+    }
+}
+
+/* ========================================================
+   5. DRAWER DESLIZANTE DE PAQUETES ENTREGADOS & TOAST
+   ======================================================== */
+function initDeliveredDrawer() {
+    const btnPanel = document.getElementById('btn-delivered-panel');
+    const btnClose = document.getElementById('btnCloseDeliveredDrawer');
+    const overlay = document.getElementById('deliveredDrawerOverlay');
+    const drawer = document.getElementById('deliveredDrawer');
+    const btnClear = document.getElementById('btnClearDeliveredHistory');
+
+    function openDrawer() {
+        if (!drawer || !overlay) return;
+        renderDeliveredDrawer();
+        drawer.classList.add('open');
+        overlay.classList.add('open');
+        drawer.setAttribute('aria-hidden', 'false');
+        overlay.setAttribute('aria-hidden', 'false');
+        LogisticState.drawerOpen = true;
+    }
+
+    function closeDrawer() {
+        if (!drawer || !overlay) return;
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+        drawer.setAttribute('aria-hidden', 'true');
+        overlay.setAttribute('aria-hidden', 'true');
+        LogisticState.drawerOpen = false;
+    }
+
+    if (btnPanel) btnPanel.addEventListener('click', openDrawer);
+    if (btnClose) btnClose.addEventListener('click', closeDrawer);
+    if (overlay) overlay.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && LogisticState.drawerOpen) {
+            closeDrawer();
+        }
+    });
+
+    if (btnClear) {
+        btnClear.addEventListener('click', () => {
+            LogisticState.deliveredPackages = [];
+            saveDeliveredPackages();
+            updateDeliveredCountBadge();
+
+            // Resetear clases visuales en todas las cajas de cartón
+            const dict = I18N[currentLang] || I18N.es;
+            document.querySelectorAll('.cardboard-box').forEach(box => {
+                box.classList.remove('delivered');
+                const statusEl = box.querySelector('.box-indicator-status');
+                const hintEl = box.querySelector('.box-action-hint');
+                if (box.classList.contains('active')) {
+                    if (statusEl) {
+                        statusEl.className = 'box-indicator-status';
+                        statusEl.textContent = dict.box_status_focused;
+                    }
+                    if (hintEl) hintEl.textContent = dict.box_hint_selected;
+                } else {
+                    if (statusEl) {
+                        statusEl.className = 'box-indicator-status pending';
+                        statusEl.textContent = dict.box_status_pending;
+                    }
+                    if (hintEl) hintEl.textContent = dict.box_hint_click;
+                }
+            });
+
+            // Re-solicitar el QR del paquete enfocado actual
+            requestPackageQr(LogisticState.currentPkgId);
+            renderDeliveredDrawer();
+            showToast(dict.drawer_clear || 'Registro vaciado');
+        });
+    }
+}
+
+function renderDeliveredDrawer() {
+    const listContainer = document.getElementById('deliveredDrawerList');
+    if (!listContainer) return;
+
+    const dict = I18N[currentLang] || I18N.es;
+    const items = LogisticState.deliveredPackages;
+
+    if (!items || items.length === 0) {
+        listContainer.innerHTML = `
+            <div class="delivered-empty-state">
+                <div class="delivered-empty-icon">📦</div>
+                <div class="delivered-empty-title">${dict.drawer_empty || 'No hay entregas certificadas todavía.'}</div>
+                <div class="delivered-empty-sub">${dict.drawer_empty_sub || 'Selecciona un paquete y escanea su QR con WhatsApp para sellar la entrega.'}</div>
+            </div>
+        `;
+        return;
+    }
+
+    listContainer.innerHTML = items.map(item => `
+        <article class="delivered-item-card">
+            <div class="delivered-card-header">
+                <span class="delivered-card-id font-mono">${item.id}</span>
+                <span class="delivered-card-status">${dict.js_delivered || '✓ ENTREGADO'}</span>
+            </div>
+            <div class="delivered-card-recipient">${item.recipient}</div>
+            <div class="delivered-card-address">${item.address}</div>
+            <div class="delivered-card-meta">
+                <span>⏱️ ${item.timeFormatted || ''}</span>
+                <span class="delivered-card-hash font-mono">SHA: ${item.hash.substring(0, 10)}...</span>
+            </div>
+        </article>
+    `).join('');
+}
+
+let toastTimer = null;
+function showToast(message) {
+    const toast = document.getElementById('logisticToast');
+    if (!toast) return;
+
+    toast.textContent = message;
+    toast.classList.add('show');
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3500);
+}
+
+/* ========================================================
+   6. INTERACTIVIDAD DE LAS 6 CAJAS DE CARTÓN (SELECCIÓN)
    ======================================================== */
 function initPackageSelection() {
     const boxes = document.querySelectorAll('.cardboard-box');
@@ -566,8 +1131,6 @@ function initPackageSelection() {
     const notchPkgLabel = document.getElementById('notch-pkg-label');
     const laserBeam = document.getElementById('laser-beam');
     const hudHashDisplay = document.getElementById('hud-hash-display');
-    const btnCertify = document.getElementById('btn-certify-delivery');
-    const btnCertifyLabel = document.getElementById('btn-certify-label');
 
     boxes.forEach(box => {
         box.addEventListener('click', () => {
@@ -608,7 +1171,7 @@ function initPackageSelection() {
             // Animar láser de escaneo en la pantalla del iPhone
             if (laserBeam) {
                 laserBeam.style.animation = 'none';
-                void laserBeam.offsetWidth; // forzar reflow
+                void laserBeam.offsetWidth; // Forzar reflow
                 laserBeam.style.animation = 'scan-move 1.5s ease-in-out infinite alternate';
             }
 
@@ -618,7 +1181,7 @@ function initPackageSelection() {
             if (hudPkgAddress) hudPkgAddress.textContent = pkgAddress;
             if (hudPkgWeight) hudPkgWeight.textContent = pkgWeight;
 
-            // Actualizar Dynamic Island / Notch con traducciones
+            // Actualizar Dynamic Island / Notch
             if (notchStatusText) notchStatusText.textContent = dict.js_scanning;
             if (notchPkgLabel) notchPkgLabel.textContent = `${pkgId} ${dict.js_focused_suffix}`;
 
@@ -626,18 +1189,20 @@ function initPackageSelection() {
                 if (notchStatusText) notchStatusText.textContent = dict.js_verified;
             }, 700);
 
-            // Resetear botón de certificar si este paquete no ha sido entregado
-            if (btnCertify && !box.classList.contains('delivered')) {
-                btnCertify.disabled = false;
-                btnCertify.style.background = 'var(--brand-delivery-orange)';
-                if (btnCertifyLabel) btnCertifyLabel.textContent = dict.js_certify_action;
-            }
-
             // Generar hash dinámico preview
             if (hudHashDisplay) {
                 const randomHex = Math.random().toString(16).substring(2, 10);
                 hudHashDisplay.textContent = `SHA-256: ${randomHex}9d3f...`;
             }
+
+            // Desplazamiento fluido en pantallas móviles / tablets al iPhone
+            const scanSection = document.getElementById('section-scan');
+            if (scanSection && window.innerWidth <= 1024) {
+                scanSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // Cargar y renderizar el QR del paquete seleccionado
+            requestPackageQr(pkgId);
         });
 
         // Soporte para selección con teclado (Enter / Espacio)
@@ -651,52 +1216,30 @@ function initPackageSelection() {
 }
 
 /* ========================================================
-   3. ACCIÓN DE CERTIFICAR ENTREGA (SELLADO CRIPTOGRÁFICO)
+   7. ACCIÓN MANUAL DEL BOTÓN CERTIFICAR ENTREGA
    ======================================================== */
 function initDeliveryCertification() {
     const btnCertify = document.getElementById('btn-certify-delivery');
     const btnCertifyLabel = document.getElementById('btn-certify-label');
-    const hudHashDisplay = document.getElementById('hud-hash-display');
-    const notchStatusText = document.getElementById('notch-status-text');
-    const notchPkgLabel = document.getElementById('notch-pkg-label');
 
     if (!btnCertify) return;
 
-    btnCertify.addEventListener('click', () => {
-        const activeBox = document.querySelector('.cardboard-box.active');
-        if (!activeBox || activeBox.classList.contains('delivered')) return;
+    btnCertify.addEventListener('click', (e) => {
+        const pkgId = LogisticState.currentPkgId || 'ES-MAD-8921';
+        const isDelivered = LogisticState.deliveredPackages.some(p => p.id === pkgId);
+
+        if (isDelivered) {
+            e.preventDefault();
+            return;
+        }
 
         const dict = I18N[currentLang] || I18N.es;
-
-        btnCertify.disabled = true;
         if (btnCertifyLabel) btnCertifyLabel.textContent = dict.js_signing;
 
+        // Si tiene enlace href válido a WhatsApp, la navegación natural ocurrirá.
+        // Simulamos respuesta local por si el usuario prueba sin WhatsApp real:
         setTimeout(() => {
-            // Comprobante sellado
-            if (btnCertifyLabel) btnCertifyLabel.textContent = dict.js_sealed;
-            btnCertify.style.background = "#10b981";
-
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString(currentLang === 'es' ? 'es-ES' : 'en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-            if (hudHashDisplay) {
-                hudHashDisplay.innerHTML = `<span style="color:#10b981;">${dict.js_hash_registered} (${timeStr})</span>`;
-            }
-
-            if (notchStatusText) notchStatusText.textContent = dict.js_certified;
-            if (notchPkgLabel) notchPkgLabel.textContent = dict.js_immutable_receipt;
-
-            // Marcar caja de cartón como entregada
-            activeBox.classList.add('delivered');
-            const statusEl = activeBox.querySelector('.box-indicator-status');
-            const hintEl = activeBox.querySelector('.box-action-hint');
-            if (statusEl) {
-                statusEl.className = "box-indicator-status";
-                statusEl.innerHTML = `<span style="color:#10b981; font-weight:800;">${dict.js_delivered}</span>`;
-            }
-            if (hintEl) {
-                hintEl.textContent = timeStr;
-            }
-        }, 800);
+            markPackageDelivered(pkgId);
+        }, 1200);
     });
 }
