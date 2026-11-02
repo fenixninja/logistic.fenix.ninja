@@ -823,11 +823,17 @@ function renderQrInPhone(pkgId, sessionData) {
     if (typeof QRCodeStyling !== 'undefined' && sessionData.walink) {
         try {
             const qrCode = new QRCodeStyling({
-                width: 140,
-                height: 140,
+                width: 220,
+                height: 220,
                 type: 'svg',
                 data: sessionData.walink,
                 image: WHATAUTH_CONFIG.logoUrl || undefined,
+                margin: 4,
+                qrOptions: {
+                    typeNumber: 0,
+                    mode: 'Byte',
+                    errorCorrectionLevel: 'Q'
+                },
                 dotsOptions: {
                     color: '#1F4594',
                     type: 'rounded'
@@ -838,7 +844,7 @@ function renderQrInPhone(pkgId, sessionData) {
                 imageOptions: {
                     crossOrigin: 'anonymous',
                     margin: 2,
-                    imageSize: 0.28
+                    imageSize: 0.24
                 },
                 cornersSquareOptions: {
                     color: '#FE6C27',

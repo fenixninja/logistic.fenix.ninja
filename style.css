@@ -1353,20 +1353,20 @@ h1, h2, h3, h4 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 145px;
-  height: 145px;
-  max-width: 82%;
-  max-height: 82%;
+  width: 176px;
+  height: 176px;
+  max-width: 86%;
+  max-height: 86%;
   background: #ffffff;
-  border-radius: 14px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(254, 108, 39, 0.4);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(254, 108, 39, 0.5);
   z-index: 10;
   pointer-events: auto;
   overflow: hidden;
-  padding: 6px;
+  padding: 4px;
 }
 
 .phone-qr-target svg,
