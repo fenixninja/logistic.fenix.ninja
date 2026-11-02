@@ -31,7 +31,7 @@
   <meta name="msapplication-TileImage" content="fenix_icons/ms-icon-144x144.png">
   <meta name="theme-color" content="#1F4594">
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2.1.0">
 
   <!-- WhatAuth Pixel Dependencies: Socket.IO & QR Code Styling -->
   <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
@@ -152,19 +152,19 @@
             <!-- Contenedor de Pantalla -->
             <div class="screen-container">
               <!-- Fondo del interior del teléfono: imagen FNX_logo.jpeg -->
-              <div class="bg fnx-screen-bg" style="background-image: url('img/FNX_logo.jpeg');">
-                <!-- Capa holográfica de escaneo superpuesta -->
-                <div class="scan-hud-layer">
-                  <div class="scan-crosshair-box">
-                    <div class="corner corner-tl"></div>
-                    <div class="corner corner-tr"></div>
-                    <div class="corner corner-bl"></div>
-                    <div class="corner corner-br"></div>
-                    <!-- Línea láser de escaneo -->
-                    <div class="laser-scanner-beam" id="laser-beam"></div>
-                    <!-- Target QR Pixel WhatAuth para escaneo con WhatsApp -->
-                    <div class="phone-qr-target" id="phone-qr-target"></div>
-                  </div>
+              <div class="bg fnx-screen-bg" style="background-image: url('img/FNX_logo.jpeg');"></div>
+
+              <!-- Capa holográfica de escaneo superpuesta -->
+              <div class="scan-hud-layer">
+                <div class="scan-crosshair-box">
+                  <div class="corner corner-tl"></div>
+                  <div class="corner corner-tr"></div>
+                  <div class="corner corner-bl"></div>
+                  <div class="corner corner-br"></div>
+                  <!-- Línea láser de escaneo -->
+                  <div class="laser-scanner-beam" id="laser-beam"></div>
+                  <!-- Target QR Pixel WhatAuth para escaneo con WhatsApp -->
+                  <div class="phone-qr-target" id="phone-qr-target"></div>
                 </div>
               </div>
 
@@ -506,6 +506,6 @@
   <!-- Toast de Notificación Flotante -->
   <div id="logisticToast" class="logistic-toast" aria-live="polite"></div>
 
-  <script src="index.js"></script>
+  <script src="index.js?v=2.1.0"></script>
 </body>
 </html>

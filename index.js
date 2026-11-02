@@ -696,7 +696,11 @@ function getWhatAuthSocket() {
         if (WHATAUTH_CONFIG.phone && finalWalink) {
             try {
                 const u = new URL(finalWalink);
-                u.searchParams.set('phone', WHATAUTH_CONFIG.phone);
+                if (u.hostname === 'wa.me') {
+                    u.pathname = `/${WHATAUTH_CONFIG.phone}`;
+                } else {
+                    u.searchParams.set('phone', WHATAUTH_CONFIG.phone);
+                }
                 finalWalink = u.toString();
             } catch (_) {}
         }
@@ -815,36 +819,44 @@ function renderQrInPhone(pkgId, sessionData) {
 
     qrContainer.innerHTML = '';
 
+    let rendered = false;
     if (typeof QRCodeStyling !== 'undefined' && sessionData.walink) {
-        const qrCode = new QRCodeStyling({
-            width: 140,
-            height: 140,
-            type: 'svg',
-            data: sessionData.walink,
-            image: WHATAUTH_CONFIG.logoUrl || undefined,
-            dotsOptions: {
-                color: '#1F4594',
-                type: 'rounded'
-            },
-            backgroundOptions: {
-                color: '#ffffff'
-            },
-            imageOptions: {
-                crossOrigin: 'anonymous',
-                margin: 2,
-                imageSize: 0.28
-            },
-            cornersSquareOptions: {
-                color: '#FE6C27',
-                type: 'extra-rounded'
-            },
-            cornersDotOptions: {
-                color: '#1F4594',
-                type: 'dot'
-            }
-        });
-        qrCode.append(qrContainer);
-    } else if (sessionData.qrDataUrl) {
+        try {
+            const qrCode = new QRCodeStyling({
+                width: 140,
+                height: 140,
+                type: 'svg',
+                data: sessionData.walink,
+                image: WHATAUTH_CONFIG.logoUrl || undefined,
+                dotsOptions: {
+                    color: '#1F4594',
+                    type: 'rounded'
+                },
+                backgroundOptions: {
+                    color: '#ffffff'
+                },
+                imageOptions: {
+                    crossOrigin: 'anonymous',
+                    margin: 2,
+                    imageSize: 0.28
+                },
+                cornersSquareOptions: {
+                    color: '#FE6C27',
+                    type: 'extra-rounded'
+                },
+                cornersDotOptions: {
+                    color: '#1F4594',
+                    type: 'dot'
+                }
+            });
+            qrCode.append(qrContainer);
+            rendered = true;
+        } catch (err) {
+            console.warn('[WhatAuth] Fallback en render de QR:', err);
+        }
+    }
+
+    if (!rendered && sessionData.qrDataUrl) {
         qrContainer.innerHTML = `<img src="${sessionData.qrDataUrl}" alt="QR Pixel WhatAuth" style="width: 100%; height: 100%; object-fit: contain;">`;
     }
 
