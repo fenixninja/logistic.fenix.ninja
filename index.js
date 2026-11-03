@@ -525,52 +525,31 @@ function updateCardboardBoxVisuals(box, isFocused) {
 
         if (isFocused) {
             box.classList.add('active');
-            // MODO FOCUSED (ACTIVO): Muestra datos de quien lo escaneó, hora, etc.
+            // MODO FOCUSED (ACTIVO): Mantiene dimensiones estrictamente idénticas sobre la etiqueta blanca existente
             if (bodyEl) {
-                const userName = deliveryRecord.scannedUser || deliveryRecord.recipient || 'Receptor Verificado';
-                const userPhone = deliveryRecord.maskedPhone || maskPhoneNumber(deliveryRecord.phone);
-                bodyEl.innerHTML = `
-                    <div class="box-verified-receipt">
-                        <div class="box-verified-header">
-                            <div class="box-verified-pulse-title">
-                                <span class="pulse-dot-green"></span>
-                                <strong>${dict.js_sealed || '✓ RECEPCIÓN SELLADA'}</strong>
-                            </div>
-                            <span class="box-verified-time-chip">${deliveryRecord.timeFormatted || ''}</span>
-                        </div>
-                        <div class="box-verified-user-card">
-                            <div class="box-verified-user-avatar">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                            </div>
-                            <div class="box-verified-user-data">
-                                <span class="box-verified-user-label">${dict.js_scanned_by || 'ESCANEADO POR:'}</span>
-                                <strong class="box-verified-user-name">${userName}</strong>
-                                <div class="box-verified-phone-line">
-                                    <span class="box-verified-phone font-mono">${userPhone}</span>
-                                    <span class="box-verified-tag">🔒 ${dict.js_verified_identity || 'VERIFICADO'}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box-verified-seal-footer">
-                            <span class="font-mono">SHA: ${(deliveryRecord.hash || '').substring(0, 14)}...</span>
-                            <span class="box-verified-badge-mini">WhatAuth Certified</span>
-                        </div>
-                    </div>
-                `;
+                if (box._originalBodyHtml) {
+                    bodyEl.innerHTML = box._originalBodyHtml;
+                }
+                const destInfo = bodyEl.querySelector('.pkg-dest-info');
+                if (destInfo) {
+                    const userName = deliveryRecord.scannedUser || deliveryRecord.recipient || box.dataset.name || 'Receptor Verificado';
+                    const userPhone = deliveryRecord.maskedPhone || maskPhoneNumber(deliveryRecord.phone);
+                    destInfo.innerHTML = `
+                        <strong>${userName}</strong>
+                        <span style="color:#047857; font-family:var(--font-mono); font-weight:700; font-size:10.5px;">🔒 ${userPhone}</span>
+                    `;
+                }
             }
             if (statusEl) {
                 statusEl.className = 'box-indicator-status';
-                statusEl.innerHTML = `<span style="color:#10b981; font-weight:800;">● ${dict.js_delivered || 'ENTREGADO'}</span>`;
+                statusEl.innerHTML = `<span style="color:#10b981; font-weight:800;">✓ ${dict.js_delivered || 'ENTREGADO'}</span>`;
             }
             if (hintEl) {
                 hintEl.textContent = deliveryRecord.timeFormatted || '✓';
             }
         } else {
             box.classList.remove('active');
-            // MODO DESENFOCADO: Vuelve a verse como estaba (código de barras, info) y abajo entregado y la hora
+            // MODO DESENFOCADO: Vuelve a verse como estaba (código de barras, info original) y abajo entregado y la hora
             if (bodyEl && box._originalBodyHtml) {
                 bodyEl.innerHTML = box._originalBodyHtml;
             }
