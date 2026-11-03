@@ -813,22 +813,46 @@ function requestPackageQr(pkgId) {
     }
 }
 
+function makeQrSvgResponsive(container, baseSize = 200) {
+    if (!container) return;
+    const applyResponsive = () => {
+        const svg = container.querySelector('svg');
+        if (svg) {
+            svg.setAttribute('viewBox', `0 0 ${baseSize} ${baseSize}`);
+            svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+            svg.removeAttribute('width');
+            svg.removeAttribute('height');
+            svg.style.width = '100%';
+            svg.style.height = '100%';
+            svg.style.maxWidth = '100%';
+            svg.style.maxHeight = '100%';
+            svg.style.display = 'block';
+            svg.style.margin = '0 auto';
+        }
+    };
+    applyResponsive();
+    setTimeout(applyResponsive, 40);
+    setTimeout(applyResponsive, 120);
+    setTimeout(applyResponsive, 300);
+}
+
 function renderQrInPhone(pkgId, sessionData) {
     const qrContainer = document.getElementById('phone-qr-target');
     if (!qrContainer) return;
 
     qrContainer.innerHTML = '';
 
+    const QR_BASE_SIZE = 200;
     let rendered = false;
     if (typeof QRCodeStyling !== 'undefined' && sessionData.walink) {
         try {
             const qrCode = new QRCodeStyling({
-                width: 200,
-                height: 200,
+                width: QR_BASE_SIZE,
+                height: QR_BASE_SIZE,
                 type: 'svg',
                 data: sessionData.walink,
                 image: WHATAUTH_CONFIG.logoUrl || undefined,
-                margin: 2,
+                margin: 4,
                 qrOptions: {
                     typeNumber: 0,
                     mode: 'Byte',
@@ -856,13 +880,7 @@ function renderQrInPhone(pkgId, sessionData) {
                 }
             });
             qrCode.append(qrContainer);
-            const svgEl = qrContainer.querySelector('svg');
-            if (svgEl) {
-                svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-                svgEl.style.width = '100%';
-                svgEl.style.height = '100%';
-                svgEl.style.display = 'block';
-            }
+            makeQrSvgResponsive(qrContainer, QR_BASE_SIZE);
             rendered = true;
         } catch (err) {
             console.warn('[WhatAuth] Fallback en render de QR:', err);
