@@ -855,27 +855,7 @@ function makeQrSvgResponsive(container, baseSize = 200) {
     const applyResponsive = () => {
         const svg = container.querySelector('svg');
         if (svg) {
-            // Eliminar cualquier rect de fondo que cree la librería para calcular el bbox real de los módulos
-            const bgRect = svg.querySelector('rect[fill="#ffffff"], rect[fill="#fff"]');
-            if (bgRect && (bgRect.getAttribute('width') === String(baseSize) || bgRect.getAttribute('width') === '100%')) {
-                bgRect.remove();
-            }
-
-            try {
-                const bbox = typeof svg.getBBox === 'function' ? svg.getBBox() : null;
-                if (bbox && bbox.width > 30 && bbox.height > 30 && bbox.width < baseSize) {
-                    const pad = 1;
-                    const x = Math.max(0, bbox.x - pad);
-                    const y = Math.max(0, bbox.y - pad);
-                    const w = bbox.width + pad * 2;
-                    const h = bbox.height + pad * 2;
-                    svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
-                } else {
-                    svg.setAttribute('viewBox', '14 14 172 172');
-                }
-            } catch (_) {
-                svg.setAttribute('viewBox', '14 14 172 172');
-            }
+            svg.setAttribute('viewBox', `0 0 ${baseSize} ${baseSize}`);
             svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
             svg.removeAttribute('width');
             svg.removeAttribute('height');
@@ -910,7 +890,7 @@ function renderQrInPhone(pkgId, sessionData) {
                 type: 'svg',
                 data: sessionData.walink,
                 image: WHATAUTH_CONFIG.logoUrl || undefined,
-                margin: 0,
+                margin: 2,
                 qrOptions: {
                     typeNumber: 0,
                     mode: 'Byte',
@@ -921,7 +901,7 @@ function renderQrInPhone(pkgId, sessionData) {
                     type: 'rounded'
                 },
                 backgroundOptions: {
-                    color: 'transparent'
+                    color: '#ffffff'
                 },
                 imageOptions: {
                     crossOrigin: 'anonymous',

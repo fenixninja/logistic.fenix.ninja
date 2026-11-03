@@ -1378,10 +1378,10 @@ h1, h2, h3, h4 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 30em;
-  height: 30em;
-  max-width: 96%;
-  max-height: 96%;
+  width: 29em;
+  height: 29em;
+  max-width: 95%;
+  max-height: 95%;
   background: #ffffff;
   border-radius: 1.4em;
   display: flex;
@@ -1391,7 +1391,7 @@ h1, h2, h3, h4 {
   z-index: 10;
   pointer-events: auto;
   overflow: hidden;
-  padding: 0;
+  padding: 0.6em;
   box-sizing: border-box;
 }
 
@@ -1405,8 +1405,6 @@ h1, h2, h3, h4 {
   display: block;
   margin: 0 auto;
   object-fit: contain;
-  transform: scale(1.18);
-  transform-origin: center center;
 }
 
 /* Tarjeta de Éxito / Entrega Verificada en Pantalla iPhone */
