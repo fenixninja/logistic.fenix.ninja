@@ -890,7 +890,7 @@ function renderQrInPhone(pkgId, sessionData) {
                 type: 'svg',
                 data: sessionData.walink,
                 image: WHATAUTH_CONFIG.logoUrl || undefined,
-                margin: 2,
+                margin: 1,
                 qrOptions: {
                     typeNumber: 0,
                     mode: 'Byte',
