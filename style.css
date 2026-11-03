@@ -610,18 +610,18 @@ h1, h2, h3, h4 {
 }
 
 .scan-crosshair-box {
-  width: 29em;
-  height: 29em;
-  max-width: 95%;
+  width: 32em;
+  height: 32em;
+  max-width: 96%;
   position: relative;
-  margin-top: -14em;
+  margin-top: -17.5em;
 }
 
 .corner {
   position: absolute;
-  width: 2.4em;
-  height: 2.4em;
-  border: 0.4em solid var(--brand-delivery-orange);
+  width: 2.8em;
+  height: 2.8em;
+  border: 0.45em solid var(--brand-delivery-orange);
   z-index: 30;
   pointer-events: none;
 }
@@ -1378,12 +1378,12 @@ h1, h2, h3, h4 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 27em;
-  height: 27em;
-  max-width: 95%;
-  max-height: 95%;
+  width: 30em;
+  height: 30em;
+  max-width: 96%;
+  max-height: 96%;
   background: #ffffff;
-  border-radius: 1.2em;
+  border-radius: 1.4em;
   display: flex;
   align-items: center;
   justify-content: center;
