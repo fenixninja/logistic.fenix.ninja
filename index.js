@@ -823,12 +823,12 @@ function renderQrInPhone(pkgId, sessionData) {
     if (typeof QRCodeStyling !== 'undefined' && sessionData.walink) {
         try {
             const qrCode = new QRCodeStyling({
-                width: 220,
-                height: 220,
+                width: 200,
+                height: 200,
                 type: 'svg',
                 data: sessionData.walink,
                 image: WHATAUTH_CONFIG.logoUrl || undefined,
-                margin: 4,
+                margin: 2,
                 qrOptions: {
                     typeNumber: 0,
                     mode: 'Byte',
@@ -844,7 +844,7 @@ function renderQrInPhone(pkgId, sessionData) {
                 imageOptions: {
                     crossOrigin: 'anonymous',
                     margin: 2,
-                    imageSize: 0.24
+                    imageSize: 0.22
                 },
                 cornersSquareOptions: {
                     color: '#FE6C27',
@@ -856,6 +856,13 @@ function renderQrInPhone(pkgId, sessionData) {
                 }
             });
             qrCode.append(qrContainer);
+            const svgEl = qrContainer.querySelector('svg');
+            if (svgEl) {
+                svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+                svgEl.style.width = '100%';
+                svgEl.style.height = '100%';
+                svgEl.style.display = 'block';
+            }
             rendered = true;
         } catch (err) {
             console.warn('[WhatAuth] Fallback en render de QR:', err);

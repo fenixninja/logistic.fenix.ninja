@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WhatsAuth Logistic | Terminal de Escaneo y Reparto</title>
-  <meta name="description" content="Plataforma de última milla con terminal móvil de escaneo y selección de paquetería geolocalizada.">
+  <meta name="description"
+    content="Plataforma de última milla con terminal móvil de escaneo y selección de paquetería geolocalizada.">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@600;700;800&display=swap"
+    rel="stylesheet">
 
   <!-- Favicons & Touch Icons (fenix_icons) -->
   <link rel="shortcut icon" href="fenix_icons/favicon.ico" type="image/x-icon">
@@ -31,18 +35,20 @@
   <meta name="msapplication-TileImage" content="fenix_icons/ms-icon-144x144.png">
   <meta name="theme-color" content="#1F4594">
 
-  <link rel="stylesheet" href="style.css?v=2.2.1">
+  <link rel="stylesheet" href="style.css?v=2.3.0">
 
   <!-- WhatAuth Pixel Dependencies: Socket.IO & QR Code Styling -->
   <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
   <script src="vendor/qr-code-styling.js"></script>
 </head>
+
 <body>
   <!-- ========================================================
        FONDO DE VÍDEO EN BUCLE (LOGÍSTICA Y TRANSPORTE)
        ======================================================== -->
   <div class="video-bg-container" aria-hidden="true" role="none">
-    <video id="bg-video-player" class="bg-video" muted playsinline autoplay preload="auto" src="video/Delivery_man_walking_city_street_20260915195750.mp4"></video>
+    <video id="bg-video-player" class="bg-video" muted playsinline autoplay preload="auto"
+      src="video/Delivery_man_walking_city_street_20260915195750.mp4"></video>
     <div class="video-overlay"></div>
     <div class="video-grid-pattern"></div>
   </div>
@@ -79,7 +85,8 @@
       <!-- Acciones a la derecha -->
       <div class="header-actions">
         <!-- Botón Panel de Entregados (Historial en tiempo real) -->
-        <button type="button" class="btn-delivered-panel" id="btn-delivered-panel" aria-label="Ver paquetes entregados" title="Paquetes entregados">
+        <button type="button" class="btn-delivered-panel" id="btn-delivered-panel" aria-label="Ver paquetes entregados"
+          title="Paquetes entregados">
           <span class="delivered-icon">📦</span>
           <span class="delivered-text" data-i18n="nav_delivered">Entregados</span>
           <span class="badge-delivered-count" id="badge-delivered-count">0</span>
@@ -103,7 +110,9 @@
         </div>
         <button class="btn btn-orange btn-sm" id="btn-sync-route" style="display: none;" hidden>
           <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
-            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+            <path fill-rule="evenodd"
+              d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+              clip-rule="evenodd" />
           </svg>
           <span data-i18n="btn_sync">Sincronizar Ruta</span>
         </button>
@@ -127,7 +136,8 @@
           <span class="kicker-badge" data-i18n="scan_badge">WhatsAuth POD v2.4</span>
         </div>
         <h1 class="col-title" data-i18n="scan_title">SECCIÓN SCAN</h1>
-        <p class="col-desc" data-i18n="scan_desc">Apunta o selecciona un bulto para verificar el precinto biométrico y geocercado del destinatario.</p>
+        <p class="col-desc" data-i18n="scan_desc">Apunta o selecciona un bulto para verificar el precinto biométrico y
+          geocercado del destinatario.</p>
       </div>
 
       <!-- ESCENA DEL IPHONE MOCKUP -->
@@ -177,7 +187,8 @@
                         <img src="img/logo.png" alt="Logo mini" class="notch-logo-thumb">
                       </div>
                       <div class="text">
-                        <span class="notch-title" id="notch-status-text" data-i18n="notch_status_active">ESCANER ACTIVO</span>
+                        <span class="notch-title" id="notch-status-text" data-i18n="notch_status_active">ESCANER
+                          ACTIVO</span>
                         <span class="notch-sub" id="notch-pkg-label" data-i18n="notch_ready">Listo para enfocar</span>
                       </div>
                     </div>
@@ -204,7 +215,8 @@
                 <!-- Tarjeta dinámica de lectura del paquete enfocado -->
                 <div class="scanned-package-card" id="scanned-package-card">
                   <div class="pkg-card-top">
-                    <span class="badge-active-target" id="hud-pkg-badge" data-i18n="hud_pkg_badge">PAQUETE ENFOCADO</span>
+                    <span class="badge-active-target" id="hud-pkg-badge" data-i18n="hud_pkg_badge">PAQUETE
+                      ENFOCADO</span>
                     <span class="pkg-id-chip font-mono" id="hud-pkg-id">ES-MAD-8921</span>
                   </div>
                   <div class="pkg-details-body">
@@ -222,15 +234,19 @@
                     </div>
                     <div class="hud-data-row">
                       <span class="hud-label" data-i18n="hud_label_geofence">Geocerca:</span>
-                      <span class="hud-val text-success" id="hud-pkg-geo" data-i18n="hud_geofence_status">En rango (Δ 2.4 m)</span>
+                      <span class="hud-val text-success" id="hud-pkg-geo" data-i18n="hud_geofence_status">En rango (Δ
+                        2.4 m)</span>
                     </div>
                   </div>
 
                   <!-- Botón de certificar recepción en brand orange / Enlace directo WhatsApp -->
                   <div class="hud-actions">
-                    <a class="btn btn-orange btn-full btn-scan-action" id="btn-certify-delivery" href="#" target="_blank" rel="noopener noreferrer">
+                    <a class="btn btn-orange btn-full btn-scan-action" id="btn-certify-delivery" href="#"
+                      target="_blank" rel="noopener noreferrer">
                       <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd" />
                       </svg>
                       <span id="btn-certify-label" data-i18n="btn_certify_delivery">CERTIFICAR RECEPCIÓN</span>
                     </a>
@@ -251,7 +267,7 @@
       <div class="divider-line"></div>
       <div class="divider-badge" title="Sincronización en tiempo real">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M7 16V4M7 4L3 8M7 4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
+          <path d="M7 16V4M7 4L3 8M7 4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
         </svg>
       </div>
       <div class="divider-line"></div>
@@ -268,14 +284,16 @@
           <span class="kicker-badge count-badge" data-i18n="packages_count_badge">6 BULTOS EN RUTA</span>
         </div>
         <h2 class="col-title" data-i18n="packages_title">SELECCIONAR PAQUETE</h2>
-        <p class="col-desc" data-i18n="packages_desc">Haz clic en una caja de cartón para enfocarla en el visor del iPhone y procesar su entrega verificada.</p>
+        <p class="col-desc" data-i18n="packages_desc">Haz clic en una caja de cartón para enfocarla en el visor del
+          iPhone y procesar su entrega verificada.</p>
       </div>
 
       <!-- REJILLA DE 6 CAJAS DE CARTÓN (3 ARRIBA, 3 ABAJO EN ESCRITORIO) -->
       <div class="cardboard-packages-grid">
 
         <!-- Paquete 1 (Activo por defecto) -->
-        <article class="cardboard-box active" data-pkg-id="ES-MAD-8921" data-name="Elena Morales" data-address="C/ Velázquez 45, Madrid" data-weight="1.8 kg • Frágil" data-type="Electrónica" tabindex="0">
+        <article class="cardboard-box active" data-pkg-id="ES-MAD-8921" data-name="Elena Morales"
+          data-address="C/ Velázquez 45, Madrid" data-weight="1.8 kg • Frágil" data-type="Electrónica" tabindex="0">
           <div class="box-top-tape">
             <span class="tape-text">SECURITY SEAL • WHATSAUTH</span>
           </div>
@@ -304,7 +322,8 @@
         </article>
 
         <!-- Paquete 2 -->
-        <article class="cardboard-box" data-pkg-id="ES-MAD-8922" data-name="Marcos Soler" data-address="C/ Gran Vía 32, 4º B" data-weight="2.4 kg • Estándar" data-type="Moda & Textil" tabindex="0">
+        <article class="cardboard-box" data-pkg-id="ES-MAD-8922" data-name="Marcos Soler"
+          data-address="C/ Gran Vía 32, 4º B" data-weight="2.4 kg • Estándar" data-type="Moda & Textil" tabindex="0">
           <div class="box-top-tape">
             <span class="tape-text">SECURITY SEAL • WHATSAUTH</span>
           </div>
@@ -333,7 +352,9 @@
         </article>
 
         <!-- Paquete 3 -->
-        <article class="cardboard-box" data-pkg-id="ES-MAD-8923" data-name="Laura Méndez" data-address="Paseo de la Castellana 110" data-weight="0.8 kg • Documentos" data-type="Valija Notarial" tabindex="0">
+        <article class="cardboard-box" data-pkg-id="ES-MAD-8923" data-name="Laura Méndez"
+          data-address="Paseo de la Castellana 110" data-weight="0.8 kg • Documentos" data-type="Valija Notarial"
+          tabindex="0">
           <div class="box-top-tape">
             <span class="tape-text">SECURITY SEAL • WHATSAUTH</span>
           </div>
@@ -362,7 +383,8 @@
         </article>
 
         <!-- Paquete 4 -->
-        <article class="cardboard-box" data-pkg-id="ES-MAD-8924" data-name="David Rivas" data-address="C/ Serrano 48, Local 2" data-weight="3.5 kg • Informática" data-type="Hardware TI" tabindex="0">
+        <article class="cardboard-box" data-pkg-id="ES-MAD-8924" data-name="David Rivas"
+          data-address="C/ Serrano 48, Local 2" data-weight="3.5 kg • Informática" data-type="Hardware TI" tabindex="0">
           <div class="box-top-tape">
             <span class="tape-text">SECURITY SEAL • WHATSAUTH</span>
           </div>
@@ -391,7 +413,8 @@
         </article>
 
         <!-- Paquete 5 -->
-        <article class="cardboard-box" data-pkg-id="ES-MAD-8925" data-name="Javier Gil" data-address="C/ Alcalá 142, Planta 3" data-weight="4.2 kg • Repuestos" data-type="Automoción" tabindex="0">
+        <article class="cardboard-box" data-pkg-id="ES-MAD-8925" data-name="Javier Gil"
+          data-address="C/ Alcalá 142, Planta 3" data-weight="4.2 kg • Repuestos" data-type="Automoción" tabindex="0">
           <div class="box-top-tape">
             <span class="tape-text">SECURITY SEAL • WHATSAUTH</span>
           </div>
@@ -420,7 +443,8 @@
         </article>
 
         <!-- Paquete 6 -->
-        <article class="cardboard-box" data-pkg-id="ES-MAD-8926" data-name="Sofía Varela" data-address="C/ Goya 67, 1º Dcha" data-weight="1.1 kg • Farmacia" data-type="Sanitario" tabindex="0">
+        <article class="cardboard-box" data-pkg-id="ES-MAD-8926" data-name="Sofía Varela"
+          data-address="C/ Goya 67, 1º Dcha" data-weight="1.1 kg • Farmacia" data-type="Sanitario" tabindex="0">
           <div class="box-top-tape">
             <span class="tape-text">SECURITY SEAL • WHATSAUTH</span>
           </div>
@@ -459,14 +483,18 @@
   <footer class="app-footer">
     <div class="footer-container">
       <div class="footer-left">
-        <span class="font-mono" data-i18n="footer_legal">WhatsAuth Logistic Platform &bull; Protocolo eIDAS & Art. 326 LEC</span>
+        <span class="font-mono" data-i18n="footer_legal">WhatsAuth Logistic Platform &bull; Protocolo eIDAS & Art. 326
+          LEC</span>
       </div>
       <div class="footer-right">
-        <span class="footer-author"><span data-i18n="footer_author">Autor:</span> <a href="https://fenix.ninja" target="_blank" rel="noopener noreferrer" class="footer-author-link">Fenix.ninja</a></span>
+        <span class="footer-author"><span data-i18n="footer_author">Autor:</span> <a href="https://fenix.ninja"
+            target="_blank" rel="noopener noreferrer" class="footer-author-link">Fenix.ninja</a></span>
         <span class="footer-divider">&bull;</span>
-        <a href="https://github.com/fenixninja/Logistic" target="_blank" rel="noopener noreferrer" class="footer-github-link" aria-label="Repositorio GitHub de WhatsAuth Logistic" title="GitHub Repository">
+        <a href="https://github.com/fenixninja/Logistic" target="_blank" rel="noopener noreferrer"
+          class="footer-github-link" aria-label="Repositorio GitHub de WhatsAuth Logistic" title="GitHub Repository">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
           </svg>
           <span>GitHub</span>
         </a>
@@ -478,7 +506,8 @@
        DRAWER DESLIZANTE DE PAQUETES ENTREGADOS
        ======================================================== -->
   <div id="deliveredDrawerOverlay" class="delivered-drawer-overlay" aria-hidden="true"></div>
-  <aside id="deliveredDrawer" class="delivered-drawer" aria-hidden="true" role="dialog" aria-labelledby="deliveredDrawerTitle">
+  <aside id="deliveredDrawer" class="delivered-drawer" aria-hidden="true" role="dialog"
+    aria-labelledby="deliveredDrawerTitle">
     <div class="delivered-drawer-header">
       <div class="delivered-title-group">
         <span class="delivered-title-icon">📦</span>
@@ -498,7 +527,8 @@
         <strong class="font-mono text-success">eIDAS • WhatAuth</strong>
       </div>
       <div class="delivered-actions">
-        <button id="btnClearDeliveredHistory" class="btn-clear-delivered" data-i18n="drawer_clear">Vaciar Registro</button>
+        <button id="btnClearDeliveredHistory" class="btn-clear-delivered" data-i18n="drawer_clear">Vaciar
+          Registro</button>
       </div>
     </div>
   </aside>
@@ -506,6 +536,7 @@
   <!-- Toast de Notificación Flotante -->
   <div id="logisticToast" class="logistic-toast" aria-live="polite"></div>
 
-  <script src="index.js?v=2.2.1"></script>
+  <script src="index.js?v=2.3.0"></script>
 </body>
+
 </html>

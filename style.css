@@ -610,10 +610,11 @@ h1, h2, h3, h4 {
 }
 
 .scan-crosshair-box {
-  width: 82%;
-  height: 55%;
+  width: 22em;
+  height: 22em;
+  max-width: 82%;
   position: relative;
-  margin-top: -10em;
+  margin-top: -15em;
 }
 
 .corner {
@@ -1353,12 +1354,12 @@ h1, h2, h3, h4 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 176px;
-  height: 176px;
+  width: 17.5em;
+  height: 17.5em;
   max-width: 86%;
   max-height: 86%;
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 1.4em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1366,14 +1367,18 @@ h1, h2, h3, h4 {
   z-index: 10;
   pointer-events: auto;
   overflow: hidden;
-  padding: 4px;
+  padding: 0.5em;
+  box-sizing: border-box;
 }
 
 .phone-qr-target svg,
 .phone-qr-target canvas {
   width: 100% !important;
   height: 100% !important;
+  max-width: 100%;
+  max-height: 100%;
   display: block;
+  margin: 0 auto;
 }
 
 /* Spinner de carga del QR */
