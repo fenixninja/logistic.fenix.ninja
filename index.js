@@ -755,15 +755,16 @@ function handleDeliveryVerification(data) {
 
 function requestPackageQr(pkgId) {
     const qrContainer = document.getElementById('phone-qr-target');
+    const crosshairBox = document.querySelector('.scan-crosshair-box');
     if (!qrContainer) return;
 
     LogisticState.currentPkgId = pkgId;
     const dict = I18N[currentLang] || I18N.es;
-    const isAlreadyDelivered = LogisticState.deliveredPackages.some(p => p.id === pkgId);
+    const existingDelivery = LogisticState.deliveredPackages.find(p => p.id === pkgId);
     const btnCertify = document.getElementById('btn-certify-delivery');
     const btnCertifyLabel = document.getElementById('btn-certify-label');
 
-    if (isAlreadyDelivered) {
+    if (existingDelivery) {
         if (btnCertify) {
             btnCertify.classList.add('disabled');
             btnCertify.style.background = '#10b981';
@@ -772,14 +773,22 @@ function requestPackageQr(pkgId) {
         if (btnCertifyLabel) {
             btnCertifyLabel.textContent = dict.js_sealed;
         }
-    } else {
-        if (btnCertify) {
-            btnCertify.classList.remove('disabled');
-            btnCertify.style.background = 'var(--brand-delivery-orange)';
-        }
-        if (btnCertifyLabel) {
-            btnCertifyLabel.textContent = dict.js_certify_action;
-        }
+        // El QR desaparece y muestra el estado verificado de recepción en el iPhone
+        showDeliveredStateInPhone(existingDelivery);
+        return;
+    }
+
+    // Si el paquete está pendiente, reactivar el visor láser
+    if (crosshairBox) {
+        crosshairBox.classList.remove('verified-mode');
+    }
+
+    if (btnCertify) {
+        btnCertify.classList.remove('disabled');
+        btnCertify.style.background = 'var(--brand-delivery-orange)';
+    }
+    if (btnCertifyLabel) {
+        btnCertifyLabel.textContent = dict.js_certify_action;
     }
 
     // Si ya tenemos sesión en caché para este paquete, renderizar de inmediato
@@ -813,12 +822,54 @@ function requestPackageQr(pkgId) {
     }
 }
 
+function showDeliveredStateInPhone(deliveryRecord) {
+    const qrContainer = document.getElementById('phone-qr-target');
+    const crosshairBox = document.querySelector('.scan-crosshair-box');
+    const dict = I18N[currentLang] || I18N.es;
+
+    if (crosshairBox) {
+        crosshairBox.classList.add('verified-mode');
+    }
+
+    if (qrContainer) {
+        qrContainer.innerHTML = `
+            <div class="delivery-verified-card">
+                <div class="verified-icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <div class="verified-title">${dict.js_delivered || 'ENTREGA CERTIFICADA'}</div>
+                <div class="verified-pkg-id">${deliveryRecord.id}</div>
+                <div class="verified-time-stamp">${deliveryRecord.timeFormatted || ''}</div>
+                <div class="verified-seal-pill">
+                    <span class="pulse-dot-green"></span> ${dict.js_sealed || 'PRECINTADO WHATAUTH'}
+                </div>
+            </div>
+        `;
+    }
+}
+
 function makeQrSvgResponsive(container, baseSize = 200) {
     if (!container) return;
     const applyResponsive = () => {
         const svg = container.querySelector('svg');
         if (svg) {
-            svg.setAttribute('viewBox', `0 0 ${baseSize} ${baseSize}`);
+            try {
+                const bbox = typeof svg.getBBox === 'function' ? svg.getBBox() : null;
+                if (bbox && bbox.width > 40 && bbox.height > 40) {
+                    const pad = 1.5;
+                    const x = Math.max(0, bbox.x - pad);
+                    const y = Math.max(0, bbox.y - pad);
+                    const w = bbox.width + pad * 2;
+                    const h = bbox.height + pad * 2;
+                    svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
+                } else {
+                    svg.setAttribute('viewBox', '3 3 194 194');
+                }
+            } catch (_) {
+                svg.setAttribute('viewBox', '3 3 194 194');
+            }
             svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
             svg.removeAttribute('width');
             svg.removeAttribute('height');
@@ -951,6 +1002,8 @@ function markPackageDelivered(pkgId, scanMeta = {}) {
 
     // Actualizar HUD del iPhone si es el paquete actualmente enfocado
     if (LogisticState.currentPkgId === pkgId) {
+        showDeliveredStateInPhone(deliveryRecord);
+
         const btnCertify = document.getElementById('btn-certify-delivery');
         const btnCertifyLabel = document.getElementById('btn-certify-label');
         const hudHashDisplay = document.getElementById('hud-hash-display');
