@@ -82,7 +82,8 @@ const I18N = {
         loading_qr: "Cargando QR...",
         toast_delivered_title: "✓ ¡Recepción Sellada!",
         toast_delivered_desc: "Paquete verificado con WhatsApp",
-        js_verified_identity: "IDENTIDAD VERIFICADA"
+        js_verified_identity: "IDENTIDAD VERIFICADA",
+        js_scanned_by: "ESCANEADO POR:"
     },
     en: {
         brand_subtag: "LOGISTIC TERMINAL",
@@ -144,7 +145,8 @@ const I18N = {
         loading_qr: "Loading QR...",
         toast_delivered_title: "✓ Receipt Sealed!",
         toast_delivered_desc: "Parcel verified with WhatsApp",
-        js_verified_identity: "VERIFIED IDENTITY"
+        js_verified_identity: "VERIFIED IDENTITY",
+        js_scanned_by: "SCANNED BY:"
     },
     de: {
         brand_subtag: "LOGISTIK-TERMINAL",
@@ -206,7 +208,8 @@ const I18N = {
         loading_qr: "QR wird geladen...",
         toast_delivered_title: "✓ Empfang versiegelt!",
         toast_delivered_desc: "Paket mit WhatsApp verifiziert",
-        js_verified_identity: "VERIFIZIERTE IDENTITÄT"
+        js_verified_identity: "VERIFIZIERTE IDENTITÄT",
+        js_scanned_by: "GESCANNT VON:"
     },
     fr: {
         brand_subtag: "TERMINAL LOGISTIQUE",
@@ -268,7 +271,8 @@ const I18N = {
         loading_qr: "Chargement QR...",
         toast_delivered_title: "✓ Réception scellée !",
         toast_delivered_desc: "Colis vérifié avec WhatsApp",
-        js_verified_identity: "IDENTITÉ VÉRIFIÉE"
+        js_verified_identity: "IDENTITÉ VÉRIFIÉE",
+        js_scanned_by: "SCANNÉ PAR :"
     },
     hi: {
         brand_subtag: "लॉजिस्टिक्स टर्मिनल",
@@ -330,7 +334,8 @@ const I18N = {
         loading_qr: "क्यूआर लोड हो रहा है...",
         toast_delivered_title: "✓ प्राप्ति सील की गई!",
         toast_delivered_desc: "व्हाट्सएप से पैकेज सत्यापित",
-        js_verified_identity: "सत्यापित पहचान"
+        js_verified_identity: "सत्यापित पहचान",
+        js_scanned_by: "द्वारा स्कैन किया गया:"
     },
     zh: {
         brand_subtag: "物流移动终端",
@@ -392,7 +397,8 @@ const I18N = {
         loading_qr: "正在加载二维码...",
         toast_delivered_title: "✓ 签收印封成功！",
         toast_delivered_desc: "包裹已通过WhatsApp认证",
-        js_verified_identity: "身份已验证"
+        js_verified_identity: "身份已验证",
+        js_scanned_by: "扫码签收人："
     },
     ja: {
         brand_subtag: "物流端末ターミナル",
@@ -454,7 +460,8 @@ const I18N = {
         loading_qr: "QRを読み込み中...",
         toast_delivered_title: "✓ 受領認証完了！",
         toast_delivered_desc: "WhatsAppで荷物を照合しました",
-        js_verified_identity: "本人確認済み"
+        js_verified_identity: "本人確認済み",
+        js_scanned_by: "スキャン受領者:"
     }
 };
 
@@ -497,6 +504,111 @@ function detectBrowserLanguage() {
     return 'es'; // Idioma por defecto
 }
 
+function updateCardboardBoxVisuals(box, isFocused) {
+    if (!box) return;
+    const dict = I18N[currentLang] || I18N.es;
+    const pkgId = box.dataset.pkgId;
+    const bodyEl = box.querySelector('.box-body');
+    const statusEl = box.querySelector('.box-indicator-status');
+    const hintEl = box.querySelector('.box-action-hint');
+
+    // Guardar el contenido original de la etiqueta del paquete si aún no se ha respaldado
+    if (bodyEl && !box._originalBodyHtml) {
+        box._originalBodyHtml = bodyEl.innerHTML;
+    }
+
+    const deliveryRecord = LogisticState.deliveredPackages.find(p => p.id === pkgId);
+    const isDelivered = !!deliveryRecord;
+
+    if (isDelivered) {
+        box.classList.add('delivered');
+
+        if (isFocused) {
+            box.classList.add('active');
+            // MODO FOCUSED (ACTIVO): Muestra datos de quien lo escaneó, hora, etc.
+            if (bodyEl) {
+                const userName = deliveryRecord.scannedUser || deliveryRecord.recipient || 'Receptor Verificado';
+                const userPhone = deliveryRecord.maskedPhone || maskPhoneNumber(deliveryRecord.phone);
+                bodyEl.innerHTML = `
+                    <div class="box-verified-receipt">
+                        <div class="box-verified-header">
+                            <div class="box-verified-pulse-title">
+                                <span class="pulse-dot-green"></span>
+                                <strong>${dict.js_sealed || '✓ RECEPCIÓN SELLADA'}</strong>
+                            </div>
+                            <span class="box-verified-time-chip">${deliveryRecord.timeFormatted || ''}</span>
+                        </div>
+                        <div class="box-verified-user-card">
+                            <div class="box-verified-user-avatar">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </div>
+                            <div class="box-verified-user-data">
+                                <span class="box-verified-user-label">${dict.js_scanned_by || 'ESCANEADO POR:'}</span>
+                                <strong class="box-verified-user-name">${userName}</strong>
+                                <div class="box-verified-phone-line">
+                                    <span class="box-verified-phone font-mono">${userPhone}</span>
+                                    <span class="box-verified-tag">🔒 ${dict.js_verified_identity || 'VERIFICADO'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-verified-seal-footer">
+                            <span class="font-mono">SHA: ${(deliveryRecord.hash || '').substring(0, 14)}...</span>
+                            <span class="box-verified-badge-mini">WhatAuth Certified</span>
+                        </div>
+                    </div>
+                `;
+            }
+            if (statusEl) {
+                statusEl.className = 'box-indicator-status';
+                statusEl.innerHTML = `<span style="color:#10b981; font-weight:800;">● ${dict.js_delivered || 'ENTREGADO'}</span>`;
+            }
+            if (hintEl) {
+                hintEl.textContent = deliveryRecord.timeFormatted || '✓';
+            }
+        } else {
+            box.classList.remove('active');
+            // MODO DESENFOCADO: Vuelve a verse como estaba (código de barras, info) y abajo entregado y la hora
+            if (bodyEl && box._originalBodyHtml) {
+                bodyEl.innerHTML = box._originalBodyHtml;
+            }
+            if (statusEl) {
+                statusEl.className = 'box-indicator-status';
+                statusEl.innerHTML = `<span style="color:#10b981; font-weight:800;">✓ ${dict.js_delivered || 'ENTREGADO'}</span>`;
+            }
+            if (hintEl) {
+                hintEl.textContent = deliveryRecord.timeFormatted || '✓';
+            }
+        }
+    } else {
+        box.classList.remove('delivered');
+        if (bodyEl && box._originalBodyHtml) {
+            bodyEl.innerHTML = box._originalBodyHtml;
+        }
+        if (isFocused) {
+            box.classList.add('active');
+            if (statusEl) {
+                statusEl.className = 'box-indicator-status';
+                statusEl.textContent = dict.box_status_focused;
+            }
+            if (hintEl) {
+                hintEl.textContent = dict.box_hint_selected;
+            }
+        } else {
+            box.classList.remove('active');
+            if (statusEl) {
+                statusEl.className = 'box-indicator-status pending';
+                statusEl.textContent = dict.box_status_pending;
+            }
+            if (hintEl) {
+                hintEl.textContent = dict.box_hint_click;
+            }
+        }
+    }
+}
+
 function setLanguage(lang) {
     if (!SUPPORTED_LANGS.includes(lang)) {
         lang = 'es';
@@ -533,18 +645,7 @@ function setLanguage(lang) {
     // Actualizar estados visuales de las cajas de cartón
     const boxes = document.querySelectorAll('.cardboard-box');
     boxes.forEach(box => {
-        const statusEl = box.querySelector('.box-indicator-status');
-        const hintEl = box.querySelector('.box-action-hint');
-
-        if (box.classList.contains('delivered')) {
-            if (statusEl) statusEl.innerHTML = `<span style="color:#10b981; font-weight:800;">${dict.js_delivered}</span>`;
-        } else if (box.classList.contains('active')) {
-            if (statusEl) statusEl.textContent = dict.box_status_focused;
-            if (hintEl) hintEl.textContent = dict.box_hint_selected;
-        } else {
-            if (statusEl) statusEl.textContent = dict.box_status_pending;
-            if (hintEl) hintEl.textContent = dict.box_hint_click;
-        }
+        updateCardboardBoxVisuals(box, box.classList.contains('active'));
     });
 
     // Actualizar botón de certificar si no está en estado entregado
@@ -780,6 +881,11 @@ function requestPackageQr(pkgId) {
         if (btnCertifyLabel) {
             btnCertifyLabel.textContent = dict.js_sealed;
         }
+        const notchStatusText = document.getElementById('notch-status-text');
+        const notchPkgLabel = document.getElementById('notch-pkg-label');
+        if (notchStatusText) notchStatusText.textContent = dict.js_certified;
+        if (notchPkgLabel) notchPkgLabel.textContent = `${existingDelivery.scannedUser || 'ID'}: ${existingDelivery.maskedPhone || maskPhoneNumber(existingDelivery.phone)}`;
+
         // El QR desaparece y muestra el estado verificado de recepción en el iPhone
         showDeliveredStateInPhone(existingDelivery);
         return;
@@ -1032,19 +1138,11 @@ function markPackageDelivered(pkgId, scanMeta = {}) {
         saveDeliveredPackages();
     }
 
-    // Marcar visualmente la caja de cartón como entregada
-    if (box) {
-        box.classList.add('delivered');
-        const statusEl = box.querySelector('.box-indicator-status');
-        const hintEl = box.querySelector('.box-action-hint');
-        if (statusEl) {
-            statusEl.className = "box-indicator-status";
-            statusEl.innerHTML = `<span style="color:#10b981; font-weight:800;">${dict.js_delivered}</span>`;
-        }
-        if (hintEl) {
-            hintEl.textContent = timeStr;
-        }
-    }
+    // Actualizar visualmente todas las cajas de cartón según el foco
+    const allBoxes = document.querySelectorAll('.cardboard-box');
+    allBoxes.forEach(b => {
+        updateCardboardBoxVisuals(b, b.dataset.pkgId === LogisticState.currentPkgId);
+    });
 
     // Actualizar HUD del iPhone si es el paquete actualmente enfocado
     if (LogisticState.currentPkgId === pkgId) {
@@ -1104,21 +1202,10 @@ function loadDeliveredPackages() {
 }
 
 function restoreDeliveredStateOnBoxes() {
-    const dict = I18N[currentLang] || I18N.es;
-    LogisticState.deliveredPackages.forEach(pkg => {
-        const box = document.querySelector(`.cardboard-box[data-pkg-id="${pkg.id}"]`);
-        if (box) {
-            box.classList.add('delivered');
-            const statusEl = box.querySelector('.box-indicator-status');
-            const hintEl = box.querySelector('.box-action-hint');
-            if (statusEl) {
-                statusEl.className = "box-indicator-status";
-                statusEl.innerHTML = `<span style="color:#10b981; font-weight:800;">${dict.js_delivered}</span>`;
-            }
-            if (hintEl) {
-                hintEl.textContent = pkg.timeFormatted || '✓';
-            }
-        }
+    const boxes = document.querySelectorAll('.cardboard-box');
+    boxes.forEach(box => {
+        const isCurrent = LogisticState.currentPkgId === box.dataset.pkgId;
+        updateCardboardBoxVisuals(box, isCurrent);
     });
     updateDeliveredCountBadge();
 }
@@ -1185,24 +1272,9 @@ function initDeliveredDrawer() {
             updateDeliveredCountBadge();
 
             // Resetear clases visuales en todas las cajas de cartón
-            const dict = I18N[currentLang] || I18N.es;
-            document.querySelectorAll('.cardboard-box').forEach(box => {
-                box.classList.remove('delivered');
-                const statusEl = box.querySelector('.box-indicator-status');
-                const hintEl = box.querySelector('.box-action-hint');
-                if (box.classList.contains('active')) {
-                    if (statusEl) {
-                        statusEl.className = 'box-indicator-status';
-                        statusEl.textContent = dict.box_status_focused;
-                    }
-                    if (hintEl) hintEl.textContent = dict.box_hint_selected;
-                } else {
-                    if (statusEl) {
-                        statusEl.className = 'box-indicator-status pending';
-                        statusEl.textContent = dict.box_status_pending;
-                    }
-                    if (hintEl) hintEl.textContent = dict.box_hint_click;
-                }
+            const allBoxes = document.querySelectorAll('.cardboard-box');
+            allBoxes.forEach(box => {
+                updateCardboardBoxVisuals(box, box.dataset.pkgId === LogisticState.currentPkgId);
             });
 
             // Re-solicitar el QR del paquete enfocado actual
@@ -1283,34 +1355,13 @@ function initPackageSelection() {
         box.addEventListener('click', () => {
             const dict = I18N[currentLang] || I18N.es;
 
-            // Quitar estado activo previo
-            boxes.forEach(b => {
-                b.classList.remove('active');
-                const statusEl = b.querySelector('.box-indicator-status');
-                const hintEl = b.querySelector('.box-action-hint');
-                if (statusEl && !b.classList.contains('delivered')) {
-                    statusEl.className = 'box-indicator-status pending';
-                    statusEl.textContent = dict.box_status_pending;
-                }
-                if (hintEl && !b.classList.contains('delivered')) {
-                    hintEl.textContent = dict.box_hint_click;
-                }
-            });
-
-            // Activar caja actual
-            box.classList.add('active');
-            const statusEl = box.querySelector('.box-indicator-status');
-            const hintEl = box.querySelector('.box-action-hint');
-            if (statusEl && !box.classList.contains('delivered')) {
-                statusEl.className = 'box-indicator-status';
-                statusEl.textContent = dict.box_status_focused;
-            }
-            if (hintEl && !box.classList.contains('delivered')) {
-                hintEl.textContent = dict.box_hint_selected;
-            }
-
-            // Extraer datos del dataset
             const pkgId = box.dataset.pkgId;
+            LogisticState.currentPkgId = pkgId;
+
+            // Actualizar visuales de todas las cajas: la pulsada se enfoca, las demás vuelven al modo desenfocado
+            boxes.forEach(b => {
+                updateCardboardBoxVisuals(b, b === box);
+            });
             const pkgName = box.dataset.name;
             const pkgAddress = box.dataset.address;
             const pkgWeight = box.dataset.weight;
