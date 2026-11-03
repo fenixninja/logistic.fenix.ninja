@@ -610,9 +610,9 @@ h1, h2, h3, h4 {
 }
 
 .scan-crosshair-box {
-  width: 27em;
-  height: 27em;
-  max-width: 92%;
+  width: 29em;
+  height: 29em;
+  max-width: 95%;
   position: relative;
   margin-top: -14em;
 }
@@ -1378,8 +1378,8 @@ h1, h2, h3, h4 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 25.5em;
-  height: 25.5em;
+  width: 27em;
+  height: 27em;
   max-width: 95%;
   max-height: 95%;
   background: #ffffff;
@@ -1405,6 +1405,8 @@ h1, h2, h3, h4 {
   display: block;
   margin: 0 auto;
   object-fit: contain;
+  transform: scale(1.18);
+  transform-origin: center center;
 }
 
 /* Tarjeta de Éxito / Entrega Verificada en Pantalla iPhone */

@@ -855,20 +855,26 @@ function makeQrSvgResponsive(container, baseSize = 200) {
     const applyResponsive = () => {
         const svg = container.querySelector('svg');
         if (svg) {
+            // Eliminar cualquier rect de fondo que cree la librería para calcular el bbox real de los módulos
+            const bgRect = svg.querySelector('rect[fill="#ffffff"], rect[fill="#fff"]');
+            if (bgRect && (bgRect.getAttribute('width') === String(baseSize) || bgRect.getAttribute('width') === '100%')) {
+                bgRect.remove();
+            }
+
             try {
                 const bbox = typeof svg.getBBox === 'function' ? svg.getBBox() : null;
-                if (bbox && bbox.width > 40 && bbox.height > 40) {
-                    const pad = 1.5;
+                if (bbox && bbox.width > 30 && bbox.height > 30 && bbox.width < baseSize) {
+                    const pad = 1;
                     const x = Math.max(0, bbox.x - pad);
                     const y = Math.max(0, bbox.y - pad);
                     const w = bbox.width + pad * 2;
                     const h = bbox.height + pad * 2;
                     svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
                 } else {
-                    svg.setAttribute('viewBox', '3 3 194 194');
+                    svg.setAttribute('viewBox', '14 14 172 172');
                 }
             } catch (_) {
-                svg.setAttribute('viewBox', '3 3 194 194');
+                svg.setAttribute('viewBox', '14 14 172 172');
             }
             svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
             svg.removeAttribute('width');
@@ -915,7 +921,7 @@ function renderQrInPhone(pkgId, sessionData) {
                     type: 'rounded'
                 },
                 backgroundOptions: {
-                    color: '#ffffff'
+                    color: 'transparent'
                 },
                 imageOptions: {
                     crossOrigin: 'anonymous',
