@@ -831,9 +831,10 @@ function makeQrSvgResponsive(container, baseSize = 200) {
         }
     };
     applyResponsive();
-    setTimeout(applyResponsive, 40);
-    setTimeout(applyResponsive, 120);
-    setTimeout(applyResponsive, 300);
+    setTimeout(applyResponsive, 30);
+    setTimeout(applyResponsive, 80);
+    setTimeout(applyResponsive, 180);
+    setTimeout(applyResponsive, 400);
 }
 
 function renderQrInPhone(pkgId, sessionData) {
@@ -852,7 +853,7 @@ function renderQrInPhone(pkgId, sessionData) {
                 type: 'svg',
                 data: sessionData.walink,
                 image: WHATAUTH_CONFIG.logoUrl || undefined,
-                margin: 4,
+                margin: 0,
                 qrOptions: {
                     typeNumber: 0,
                     mode: 'Byte',
