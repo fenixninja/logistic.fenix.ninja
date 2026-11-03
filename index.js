@@ -81,7 +81,8 @@ const I18N = {
         btn_whatsapp_verify: "Confirmar en WhatsApp",
         loading_qr: "Cargando QR...",
         toast_delivered_title: "✓ ¡Recepción Sellada!",
-        toast_delivered_desc: "Paquete verificado con WhatsApp"
+        toast_delivered_desc: "Paquete verificado con WhatsApp",
+        js_verified_identity: "IDENTIDAD VERIFICADA"
     },
     en: {
         brand_subtag: "LOGISTIC TERMINAL",
@@ -142,7 +143,8 @@ const I18N = {
         btn_whatsapp_verify: "Confirm in WhatsApp",
         loading_qr: "Loading QR...",
         toast_delivered_title: "✓ Receipt Sealed!",
-        toast_delivered_desc: "Parcel verified with WhatsApp"
+        toast_delivered_desc: "Parcel verified with WhatsApp",
+        js_verified_identity: "VERIFIED IDENTITY"
     },
     de: {
         brand_subtag: "LOGISTIK-TERMINAL",
@@ -203,7 +205,8 @@ const I18N = {
         btn_whatsapp_verify: "In WhatsApp bestätigen",
         loading_qr: "QR wird geladen...",
         toast_delivered_title: "✓ Empfang versiegelt!",
-        toast_delivered_desc: "Paket mit WhatsApp verifiziert"
+        toast_delivered_desc: "Paket mit WhatsApp verifiziert",
+        js_verified_identity: "VERIFIZIERTE IDENTITÄT"
     },
     fr: {
         brand_subtag: "TERMINAL LOGISTIQUE",
@@ -264,7 +267,8 @@ const I18N = {
         btn_whatsapp_verify: "Confirmer sur WhatsApp",
         loading_qr: "Chargement QR...",
         toast_delivered_title: "✓ Réception scellée !",
-        toast_delivered_desc: "Colis vérifié avec WhatsApp"
+        toast_delivered_desc: "Colis vérifié avec WhatsApp",
+        js_verified_identity: "IDENTITÉ VÉRIFIÉE"
     },
     hi: {
         brand_subtag: "लॉजिस्टिक्स टर्मिनल",
@@ -325,7 +329,8 @@ const I18N = {
         btn_whatsapp_verify: "व्हाट्सएप में पुष्टि करें",
         loading_qr: "क्यूआर लोड हो रहा है...",
         toast_delivered_title: "✓ प्राप्ति सील की गई!",
-        toast_delivered_desc: "व्हाट्सएप से पैकेज सत्यापित"
+        toast_delivered_desc: "व्हाट्सएप से पैकेज सत्यापित",
+        js_verified_identity: "सत्यापित पहचान"
     },
     zh: {
         brand_subtag: "物流移动终端",
@@ -386,7 +391,8 @@ const I18N = {
         btn_whatsapp_verify: "在WhatsApp中确认",
         loading_qr: "正在加载二维码...",
         toast_delivered_title: "✓ 签收印封成功！",
-        toast_delivered_desc: "包裹已通过WhatsApp认证"
+        toast_delivered_desc: "包裹已通过WhatsApp认证",
+        js_verified_identity: "身份已验证"
     },
     ja: {
         brand_subtag: "物流端末ターミナル",
@@ -447,7 +453,8 @@ const I18N = {
         btn_whatsapp_verify: "WhatsAppで確認",
         loading_qr: "QRを読み込み中...",
         toast_delivered_title: "✓ 受領認証完了！",
-        toast_delivered_desc: "WhatsAppで荷物を照合しました"
+        toast_delivered_desc: "WhatsAppで荷物を照合しました",
+        js_verified_identity: "本人確認済み"
     }
 };
 
@@ -822,6 +829,27 @@ function requestPackageQr(pkgId) {
     }
 }
 
+function maskPhoneNumber(phone) {
+    if (!phone) return '+34 ••• •• 121';
+    const clean = String(phone).replace(/[^0-9]/g, '');
+    if (clean.length < 4) return '••••' + clean;
+
+    // Caso móvil España con prefijo 34 (11 dígitos):
+    if (clean.startsWith('34') && clean.length === 11) {
+        return `+34 ••• •• ${clean.slice(-3)}`;
+    }
+    // Caso móvil España sin prefijo internacional (9 dígitos):
+    if (clean.length === 9) {
+        return `+34 ••• •• ${clean.slice(-3)}`;
+    }
+    // Caso internacional general:
+    if (clean.length > 8) {
+        const countryCode = clean.slice(0, 2);
+        return `+${countryCode} ••• •• ${clean.slice(-3)}`;
+    }
+    return `••• •• ${clean.slice(-3)}`;
+}
+
 function showDeliveredStateInPhone(deliveryRecord) {
     const qrContainer = document.getElementById('phone-qr-target');
     const crosshairBox = document.querySelector('.scan-crosshair-box');
@@ -830,6 +858,9 @@ function showDeliveredStateInPhone(deliveryRecord) {
     if (crosshairBox) {
         crosshairBox.classList.add('verified-mode');
     }
+
+    const userName = deliveryRecord.scannedUser || deliveryRecord.recipient || 'Receptor Verificado';
+    const userPhone = deliveryRecord.maskedPhone || maskPhoneNumber(deliveryRecord.phone);
 
     if (qrContainer) {
         qrContainer.innerHTML = `
@@ -841,6 +872,24 @@ function showDeliveredStateInPhone(deliveryRecord) {
                 </div>
                 <div class="verified-title">${dict.js_delivered || 'ENTREGA CERTIFICADA'}</div>
                 <div class="verified-pkg-id">${deliveryRecord.id}</div>
+
+                <!-- Usuario Trackeado con Privacidad Protegida -->
+                <div class="verified-user-box">
+                    <div class="verified-user-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="verified-user-details">
+                        <div class="verified-user-name">${userName}</div>
+                        <div class="verified-user-phone-row">
+                            <span class="verified-user-phone">${userPhone}</span>
+                            <span class="verified-privacy-badge">🔒 ${dict.js_verified_identity || 'VERIFICADO'}</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="verified-time-stamp">${deliveryRecord.timeFormatted || ''}</div>
                 <div class="verified-seal-pill">
                     <span class="pulse-dot-green"></span> ${dict.js_sealed || 'PRECINTADO WHATAUTH'}
@@ -954,6 +1003,15 @@ function markPackageDelivered(pkgId, scanMeta = {}) {
     // Generar precinto criptográfico SHA-256
     const hash = '9d3f' + Math.random().toString(16).substring(2, 10) + Math.random().toString(16).substring(2, 10);
 
+    const userObj = scanMeta?.user || {};
+    const rawName = userObj.name || scanMeta.senderName || scanMeta.pushName || userObj.pushName || scanMeta.name || '';
+    const rawPhone = userObj.phone || scanMeta.senderPhone || scanMeta.phone || WHATAUTH_CONFIG.phone || '34627118121';
+
+    // Resolver usuario verificado y teléfono con privacidad enmascarada
+    const scannedUser = (rawName && String(rawName).trim()) ? String(rawName).trim() : recipient;
+    const scannedPhone = String(rawPhone).trim();
+    const maskedPhone = maskPhoneNumber(scannedPhone);
+
     const deliveryRecord = {
         id: pkgId,
         recipient,
@@ -963,7 +1021,9 @@ function markPackageDelivered(pkgId, scanMeta = {}) {
         timestamp: now.toISOString(),
         timeFormatted: timeStr,
         hash,
-        phone: scanMeta.senderPhone || scanMeta.phone || WHATAUTH_CONFIG.phone
+        phone: scannedPhone,
+        scannedUser,
+        maskedPhone
     };
 
     // Persistir si no existe previamente
@@ -1008,7 +1068,7 @@ function markPackageDelivered(pkgId, scanMeta = {}) {
         }
 
         if (notchStatusText) notchStatusText.textContent = dict.js_certified;
-        if (notchPkgLabel) notchPkgLabel.textContent = `Tel: +${deliveryRecord.phone}`;
+        if (notchPkgLabel) notchPkgLabel.textContent = `${deliveryRecord.scannedUser || 'ID'}: ${deliveryRecord.maskedPhone || maskPhoneNumber(deliveryRecord.phone)}`;
     }
 
     // Actualizar contador del badge
@@ -1179,6 +1239,10 @@ function renderDeliveredDrawer() {
             </div>
             <div class="delivered-card-recipient">${item.recipient}</div>
             <div class="delivered-card-address">${item.address}</div>
+            <div class="delivered-card-user-info">
+                <span class="delivered-user-tag">👤 ${item.scannedUser || item.recipient}</span>
+                <span class="delivered-phone-tag font-mono">${item.maskedPhone || maskPhoneNumber(item.phone)}</span>
+            </div>
             <div class="delivered-card-meta">
                 <span>⏱️ ${item.timeFormatted || ''}</span>
                 <span class="delivered-card-hash font-mono">SHA: ${item.hash.substring(0, 10)}...</span>
